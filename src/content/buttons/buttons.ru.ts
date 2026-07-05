@@ -22,7 +22,7 @@ export const buttonsRu: ButtonNames = {
   [BTN.Ignore_Failed]: "Не буду бросать 👎",
   [BTN.Ignore_Full_Reset]: "С самого начала 🔄",
   [BTN.Ignore_Just_Go_On]: "Просто продолжим 👌",
-  [BTN.Ignore_Set_Own_Interval]: "Назначте самостоятельно 🔻",
+  [BTN.Ignore_Set_Own_Interval]: "Ваше время 🔻",
   [BTN.Local_Time_Correct]: "Верно ✅",
   [BTN.Local_Time_Wrong]: "✏️ Изменить",
   [BTN.Local_Time_Plus_1]: "+ 1 час",
