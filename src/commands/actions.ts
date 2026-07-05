@@ -144,7 +144,9 @@ export class Actions extends Mixin(DevActions, Settings) {
   @transformMsg
   @onlyForKnownUsers
   public async toStage1(msg: TelegramBot.Message) {
-    await this._res(msg.user, Content.STAGE_1, {}, DialogKey.im_smoking_1);
+    const { idempotencyKey, ImSmokingDialogKey } = getNextIdempotencyKey(msg.user.idempotencyKey, true);
+    await UsersRepo.updateUser(msg, { idempotencyKey });
+    await this._res(msg.user, Content.STAGE_1, {}, ImSmokingDialogKey);
   }
 
   /**
