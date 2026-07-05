@@ -1,4 +1,4 @@
-export const BotEvent =  {
+export const BotEvent = {
   Message: "message",
   Callback: "callback_query",
   Start: /\/start/,
@@ -8,5 +8,6 @@ export const BotEvent =  {
   SelectLevel: /\/level/,
   How: /\/how/,
   Dev: /\/dev/,
+  Idle: /\/idle/,
 };
 

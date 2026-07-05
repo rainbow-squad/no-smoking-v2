@@ -18,6 +18,7 @@ import { cigarettesText } from "../helpers/content";
 import { computeNewDelta, difficultyNameByLevel, penaltyMinutesString, stepByDifficulty } from "../helpers";
 import { InlineKeyboard } from "../content/types";
 import { getNextIdempotencyKey, smokingButtonByIdempotencyKey } from "../helpers/idempotency";
+import { getIdleVariants } from "../helpers/idle";
 
 @LogActionCalls
 export class Actions extends Mixin(DevActions, Settings) {
@@ -34,6 +35,7 @@ export class Actions extends Mixin(DevActions, Settings) {
     this.onUserUnknown = this.onUserUnknown.bind(this);
     this.onDev = this.onDev.bind(this);
     this.onHow = this.onHow.bind(this);
+    this.onIdle = this.onIdle.bind(this);
     this.devModeDisabled = this.devModeDisabled.bind(this);
     this.onIgnoreChangesGuide = this.onIgnoreChangesGuide.bind(this);
   }
@@ -489,5 +491,14 @@ export class Actions extends Mixin(DevActions, Settings) {
     const donate_link = process.env.DONATE_LINK;
     const admin_email = process.env.ADMIN_EMAIL;
     await this._res(msg.user, Content.HOW, { donate_link, admin_email });
+  }
+
+  @transformMsg
+  @onlyForKnownUsers
+  public async onIdle(msg: TelegramBot.Message) {
+    const { user } = msg;
+    const buttonsForIdle = getIdleVariants(user.lang);
+    const no_penalty_time = minsToTimeString(user.deltaTime, user.lang);
+    await this._res(user, Content.BOT_IGNORE, { ...buttonsForIdle, no_penalty_time }, DialogKey.ignore);
   }
 }
