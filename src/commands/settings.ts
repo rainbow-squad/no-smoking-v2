@@ -180,6 +180,8 @@ export class Settings {
         await UsersRepo.updateUser(msg, {
           deltaTime,
           idempotencyKey,
+          minDeltaTime: deltaTime,
+          minDeltaTimesInitial: [],
           penaltyDays: 0,
           cigarettesInDay: 0,
           winstrike: 0,
