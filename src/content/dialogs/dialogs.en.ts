@@ -375,6 +375,14 @@ export const dialogsEn: MultilineContent = {
     I hope you won’t need this,${NL}
     but if you ever start smoking again, press /start. 
   `,
+  [Content.CUSTOM_INTERVAL_SUCCESS]: `
+    Your chosen interval has been set successfully.${N2}
+    The difficulty level has been lowered to NORMAL to help you adjust.${N2}
+    Continue using the bot as before.
+  `,
+  [Content.CUSTOM_INTERVAL_ERROR]: `
+    Failed to set the interval. Please try entering it in a different format.
+  `,
   [Content.STATS]: `
     📋 ${B}Your Statistics${B}:${NL}
     - Your current difficulty level 🏂 ${B}{{difficulty}}${B}${NL}

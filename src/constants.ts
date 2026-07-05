@@ -108,6 +108,8 @@ export enum Content {
   HOW = "how_to_help",
   MAXIMUM_REACHED = "maximum_reached",
   JOIN_OUR_CHAT = "join_our_chat",
+  CUSTOM_INTERVAL_SUCCESS = "custom_interval_success",
+  CUSTOM_INTERVAL_ERROR = "custom_interval_error",
   // TEST
   DEV = "Dev",
   DEV_OFF = "Dev_Off",
