@@ -101,7 +101,7 @@ export enum Content {
   SETTINGS_UPDATED_ON_IDLE = "settings_updated_on_idle",
   BOT_IGNORE = "bot_ignore",
   BOT_IGNORE_JUST_GO_ON = "bot_ignore_just_go_on",
-  BOT_IGNORE_PENALTY_10 = "bot_ignore_penalty_10",
+  BOT_IGNORE_SET_OWN_INTERVAL = "bot_ignore_set_own_interval",
   BOT_IGNORE_FAILED = "bot_ignore_failed",
   BOT_IGNORE_SUCCESS = "bot_ignore_success",
   STATS = "get_stats",

@@ -343,14 +343,13 @@ export const dialogsEn: MultilineContent = {
     That’s exactly why you shouldn’t give up on quitting smoking.${NL}
     You just need to finish what you started.
   `,
-  [Content.BOT_IGNORE_PENALTY_10]: `
-    You chose the "${B}10-minute penalty${B}". 
-    If you believe you broke your routine, this is the best option.${N2}
+  [Content.BOT_IGNORE_SET_OWN_INTERVAL]: `
+    You chose to "${B}set your own interval${B}".
+    This is the best option for experienced users.${N2}
     We truly appreciate your decision to continue 👍${ND}
-    Your interval has been recalculated ♨${N2}️
-    A ${I}10-minute penalty${I} has been applied.${NL}
-    Your starting value was ${I}{{delta_min}}${I}${NL}
-    The new interval between smoke breaks is now ${B}{{delta_time}}${B}.
+    Please enter the interval you need in 24h format.${N2}
+    Examples:${NL}
+    {{time_sample}}, 2:30, 3:15, 5:55
   `,
   [Content.BOT_IGNORE_FAILED]: `
     You decided ${B}not to quit smoking${B} 🤯${ND}
