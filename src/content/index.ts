@@ -187,8 +187,8 @@ const selectButtonsByKey = (key: DialogKey, locale: Lang): InlineKeyboard => {
     return [
       [buttonFor(BTN.Ignore_Success, locale)],
       [buttonFor(BTN.Ignore_Failed, locale)],
+      [buttonFor(BTN.Ignore_Just_Go_On, locale), buttonFor(BTN.Ignore_Set_Own_Interval, locale)],
       [buttonFor(BTN.Ignore_Full_Reset, locale)],
-      [buttonFor(BTN.Ignore_Just_Go_On, locale), buttonFor(BTN.Ignore_Penalty_10, locale)],
     ];
   }
   if (key === DialogKey.max_time) {

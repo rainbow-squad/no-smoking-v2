@@ -3,7 +3,6 @@ import { User, UsersRepo } from "../db";
 import { Content, DialogKey } from "../constants";
 import { getIdleVariants } from "../helpers/idle";
 import { minsToTimeString } from "../lib_helpers/humanize-duration";
-import { computeNewDelta } from "../helpers";
 import { isDayToSendChatLinkCheck } from "../lib_helpers/luxon";
 
 /**
@@ -35,9 +34,7 @@ export const _sendDelayedToInactiveUsers = (bot: TgBot, users: User[]) => {
   }
   const buttonsForIdle = getIdleVariants(user.lang);
   const no_penalty_time = minsToTimeString(user.deltaTime, user.lang);
-  const tenMinutesDelta = computeNewDelta(user, true);
-  const penalty_10_time= minsToTimeString(tenMinutesDelta, user.lang);
-  bot.sendToUser(user, Content.BOT_IGNORE, { ...buttonsForIdle, no_penalty_time, penalty_10_time }, DialogKey.ignore);
+  bot.sendToUser(user, Content.BOT_IGNORE, { ...buttonsForIdle, no_penalty_time }, DialogKey.ignore);
   setTimeout(() => _sendDelayedToInactiveUsers(bot, users), 10);
 };
 

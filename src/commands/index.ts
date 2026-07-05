@@ -75,7 +75,7 @@ export const botActionsInit = (bot: TgBot) => {
       case BTN.Ignore_Just_Go_On:
         act.ignoreJustGoOn(message);
         break;
-      case BTN.Ignore_Penalty_10:
+      case BTN.Ignore_Set_Own_Interval:
         act.ignorePenalty10(message);
         break;
       case BTN.Ignore_Failed:

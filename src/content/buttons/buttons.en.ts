@@ -22,7 +22,7 @@ export const buttonsEn: ButtonNames = {
   [BTN.Ignore_Failed]: "I’ll keep smoking 👎",
   [BTN.Ignore_Full_Reset]: "From the Beginning 🔄",
   [BTN.Ignore_Just_Go_On]: "Let’s continue 👌",
-  [BTN.Ignore_Penalty_10]: "Penalty: 10 minutes 🔻",
+  [BTN.Ignore_Set_Own_Interval]: "Specify manually 🔻",
   [BTN.Local_Time_Correct]: "Correct ✅",
   [BTN.Local_Time_Wrong]: "✏️ Edit",
   [BTN.Local_Time_Plus_1]: "+ 1 hour",

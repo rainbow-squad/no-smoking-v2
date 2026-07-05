@@ -190,7 +190,7 @@ export enum BTN {
   Ignore_Failed = "ignore_failed",
   Ignore_Full_Reset = "ignore_full_reset",
   Ignore_Just_Go_On = "ignore_just_go_on",
-  Ignore_Penalty_10 = "ignore_penalty_10",
+  Ignore_Set_Own_Interval = "ignore_set_own_interval",
   Local_Time_Correct = "local_time_correct",
   Local_Time_Wrong = "local_time_wrong",
   Local_Time_Plus_1 = "local_time_plus_1",

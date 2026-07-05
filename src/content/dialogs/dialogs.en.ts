@@ -330,13 +330,12 @@ export const dialogsEn: MultilineContent = {
     - ${I}You quit smoking?${I} — Then congratulations! 🎊${N2}
     - ${I}You decided not to quit after all${I} — That’s unfortunate, but it's your choice.${ND}
     ✅ If ${B}you plan to continue${B}, there are several options:${N2}
-    1. ${B}{{from_scratch_message}}${B} — for those who haven't used the bot for a while.${NL}
+    1. ${B}{{from_scratch_message}}${B} — if your current interval is around two hours or less.${NL}
     This will reset your progress so you can ${I}start fresh${I}.${N2}
-    2. ${B}{{no_penalty_message}}${B} — we'll simply pick up where you left off.${NL}
+    2. ${B}{{no_penalty_message}}${B} — we'll simply pick up where you left off (sometimes relevant if the pause wasn't too long).${NL}
     Your timer will be set to ${B}{{ no_penalty_time }}${B}${N2} 
-    3. ${B}{{penalty_10_message}}${B}  — if you’ve fallen off schedule, 
-    it's better to make a small rollback of 10 minutes.${NL}
-    Your timer will be set to ${B}{{ penalty_10_time }}${B}.
+    3. ${B}{{set_own_interval}}${B} — useful for experienced users who don't want to reset from scratch.${NL}
+    Set the interval you think is right, in the format ${B}3:17${B} (just type it)
   `,
   [Content.BOT_IGNORE_JUST_GO_ON]: `
     ${B}Let’s just continue!${B} Great! 👍${ND}
