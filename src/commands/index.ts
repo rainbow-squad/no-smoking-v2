@@ -14,6 +14,7 @@ export const botActionsInit = (bot: TgBot) => {
   bot.onText(BotEvent.SelectLocalTime, act.localTimeDialogCall);
   bot.onText(BotEvent.Dev, act.onDev);
   bot.onText(BotEvent.How, act.onHow);
+  bot.onText(BotEvent.Idle, act.onIdle);
   bot.on(BotEvent.Callback, (callbackQuery: CallbackQuery) => {
     const callbackType = callbackQuery.data as BTN;
     const message = callbackQuery.message;
@@ -75,8 +76,8 @@ export const botActionsInit = (bot: TgBot) => {
       case BTN.Ignore_Just_Go_On:
         act.ignoreJustGoOn(message);
         break;
-      case BTN.Ignore_Penalty_10:
-        act.ignorePenalty10(message);
+      case BTN.Ignore_Set_Own_Interval:
+        act.ignoreSetOwnInterval(message);
         break;
       case BTN.Ignore_Failed:
         act.ignoreFailed(message);

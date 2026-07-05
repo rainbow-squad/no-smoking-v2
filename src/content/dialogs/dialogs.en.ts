@@ -330,13 +330,12 @@ export const dialogsEn: MultilineContent = {
     - ${I}You quit smoking?${I} — Then congratulations! 🎊${N2}
     - ${I}You decided not to quit after all${I} — That’s unfortunate, but it's your choice.${ND}
     ✅ If ${B}you plan to continue${B}, there are several options:${N2}
-    1. ${B}{{from_scratch_message}}${B} — for those who haven't used the bot for a while.${NL}
+    1. ${B}{{from_scratch_message}}${B} — if your current interval is around two hours or less.${NL}
     This will reset your progress so you can ${I}start fresh${I}.${N2}
-    2. ${B}{{no_penalty_message}}${B} — we'll simply pick up where you left off.${NL}
+    2. ${B}{{no_penalty_message}}${B} — we'll simply pick up where you left off (sometimes relevant if the pause wasn't too long).${NL}
     Your timer will be set to ${B}{{ no_penalty_time }}${B}${N2} 
-    3. ${B}{{penalty_10_message}}${B}  — if you’ve fallen off schedule, 
-    it's better to make a small rollback of 10 minutes.${NL}
-    Your timer will be set to ${B}{{ penalty_10_time }}${B}.
+    3. ${B}{{set_own_interval}}${B} — useful for experienced users who don't want to reset from scratch.${NL}
+    Set the interval you think is right, in the format ${B}3:17${B} (just type it)
   `,
   [Content.BOT_IGNORE_JUST_GO_ON]: `
     ${B}Let’s just continue!${B} Great! 👍${ND}
@@ -344,14 +343,13 @@ export const dialogsEn: MultilineContent = {
     That’s exactly why you shouldn’t give up on quitting smoking.${NL}
     You just need to finish what you started.
   `,
-  [Content.BOT_IGNORE_PENALTY_10]: `
-    You chose the "${B}10-minute penalty${B}". 
-    If you believe you broke your routine, this is the best option.${N2}
+  [Content.BOT_IGNORE_SET_OWN_INTERVAL]: `
+    You chose to "${B}set your own interval${B}".
+    This is the best option for experienced users.${N2}
     We truly appreciate your decision to continue 👍${ND}
-    Your interval has been recalculated ♨${N2}️
-    A ${I}10-minute penalty${I} has been applied.${NL}
-    Your starting value was ${I}{{delta_min}}${I}${NL}
-    The new interval between smoke breaks is now ${B}{{delta_time}}${B}.
+    Please enter the interval you need in 24h format.${N2}
+    Examples:${NL}
+    {{time_sample}}, 2:30, 3:15, 5:55
   `,
   [Content.BOT_IGNORE_FAILED]: `
     You decided ${B}not to quit smoking${B} 🤯${ND}
@@ -376,6 +374,14 @@ export const dialogsEn: MultilineContent = {
     Thank you! 👍${ND}
     I hope you won’t need this,${NL}
     but if you ever start smoking again, press /start. 
+  `,
+  [Content.CUSTOM_INTERVAL_SUCCESS]: `
+    Your chosen interval has been set successfully.${N2}
+    The difficulty level has been lowered to NORMAL to help you adjust.${N2}
+    Continue using the bot as before.
+  `,
+  [Content.CUSTOM_INTERVAL_ERROR]: `
+    Failed to set the interval. Please try entering it in a different format.
   `,
   [Content.STATS]: `
     📋 ${B}Your Statistics${B}:${NL}

@@ -3,13 +3,13 @@ import { DateTime } from "luxon";
 import { onlyForKnownUsers, transformMsg } from "./decorators";
 import { Content, DialogKey, Difficulty, HourFormat, Lang, TimeShifting } from "../constants";
 import { computeTimeOffsetBasedOnInput, computeTimezoneShift, mssToTime } from "../lib_helpers/luxon";
-import { difficultyNameByLevel, getDifficultyLevels } from "../helpers";
+import { difficultyNameByLevel, getDifficultyLevels, timeStringToDelta } from "../helpers";
 import { UsersRepo } from "../db";
 import logger from "../logger";
 import { IGNORE_TIME } from "./constants";
 import { PlainUser } from "../global";
 import { daysToString, minsToTimeString } from "../lib_helpers/humanize-duration";
-import { smokingButtonByIdempotencyKey } from "../helpers/idempotency";
+import { getNextIdempotencyKey, smokingButtonByIdempotencyKey } from "../helpers/idempotency";
 
 export class Settings {
   /**
@@ -166,12 +166,35 @@ export class Settings {
       return Promise.resolve();
     }
     // apply timezone only if timezone is undefined
-    if (msg.user.timezone) {
+    const isCustomIntervalSetting = msg.user.deltaTime < 0;
+    if (msg.user.timezone && !isCustomIntervalSetting) {
       return Promise.resolve();
     }
     if (!/^([0-1]?\d|2[0-3]):[0-5]\d$/.test(msg.text!.trim())) {
       return;
     }
+    if (isCustomIntervalSetting) {
+      try {
+        const deltaTime = timeStringToDelta(msg.text!.trim());
+        const { idempotencyKey, ImSmokingDialogKey } = getNextIdempotencyKey(msg.user.idempotencyKey);
+        await UsersRepo.updateUser(msg, {
+          deltaTime,
+          idempotencyKey,
+          minDeltaTime: deltaTime,
+          minDeltaTimesInitial: [],
+          penaltyDays: 0,
+          cigarettesInDay: 0,
+          winstrike: 0,
+          difficulty: Difficulty.MEDIUM,
+        });
+        await this._res(msg.user, Content.CUSTOM_INTERVAL_SUCCESS, {}, ImSmokingDialogKey);
+      } catch (error) {
+        logger.debug("An error on interval setting", error);
+        await this._res(msg.user, Content.CUSTOM_INTERVAL_ERROR);
+      }
+      return Promise.resolve();
+    }
+    // set timezone
     try {
       const timezone = computeTimeOffsetBasedOnInput(msg);
       await UsersRepo.updateUser(msg, { timezone });

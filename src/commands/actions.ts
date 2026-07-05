@@ -18,6 +18,7 @@ import { cigarettesText } from "../helpers/content";
 import { computeNewDelta, difficultyNameByLevel, penaltyMinutesString, stepByDifficulty } from "../helpers";
 import { InlineKeyboard } from "../content/types";
 import { getNextIdempotencyKey, smokingButtonByIdempotencyKey } from "../helpers/idempotency";
+import { getIdleVariants } from "../helpers/idle";
 
 @LogActionCalls
 export class Actions extends Mixin(DevActions, Settings) {
@@ -34,6 +35,7 @@ export class Actions extends Mixin(DevActions, Settings) {
     this.onUserUnknown = this.onUserUnknown.bind(this);
     this.onDev = this.onDev.bind(this);
     this.onHow = this.onHow.bind(this);
+    this.onIdle = this.onIdle.bind(this);
     this.devModeDisabled = this.devModeDisabled.bind(this);
     this.onIgnoreChangesGuide = this.onIgnoreChangesGuide.bind(this);
   }
@@ -130,7 +132,7 @@ export class Actions extends Mixin(DevActions, Settings) {
       const smokingButtonKey = smokingButtonByIdempotencyKey(msg.user.idempotencyKey);
       const time_to_get_smoke = mssToTime(msg.user.nextTime, msg.user);
       const delta_time = minsToTimeString(msg.user.deltaTime, msg.user.lang);
-      await this._res(msg.user, Content.START_VALID_USER, { delta_time, time_to_get_smoke }, smokingButtonKey );
+      await this._res(msg.user, Content.START_VALID_USER, { delta_time, time_to_get_smoke }, smokingButtonKey);
       return;
     }
     const min_delta = minsToTimeString(msg.user.minDeltaTime, msg.user.lang);
@@ -144,7 +146,9 @@ export class Actions extends Mixin(DevActions, Settings) {
   @transformMsg
   @onlyForKnownUsers
   public async toStage1(msg: TelegramBot.Message) {
-    await this._res(msg.user, Content.STAGE_1, {}, DialogKey.im_smoking_1);
+    const { idempotencyKey, ImSmokingDialogKey } = getNextIdempotencyKey(msg.user.idempotencyKey, true);
+    await UsersRepo.updateUser(msg, { idempotencyKey });
+    await this._res(msg.user, Content.STAGE_1, {}, ImSmokingDialogKey);
   }
 
   /**
@@ -421,8 +425,10 @@ export class Actions extends Mixin(DevActions, Settings) {
     await this._res(msg.user, Content.ON_IDLE_TIME_CONFIRMATION, { local_time }, DialogKey.confirm_local_time);
   }
 
-  @transformMsg
-  @onlyForKnownUsers
+  /**
+   * Old method. Not used anymore
+   * @transformMsg
+   * @onlyForKnownUsers
   public async ignorePenalty10(msg: TelegramBot.Message) {
     const newDelta = computeNewDelta(msg.user, true);
     await UsersRepo.updateUser(msg, {
@@ -439,6 +445,14 @@ export class Actions extends Mixin(DevActions, Settings) {
     await this._res(msg.user, Content.BOT_IGNORE_PENALTY_10, contentProps);
     const local_time = mssToTime(msg.ts, msg.user);
     await this._res(msg.user, Content.ON_IDLE_TIME_CONFIRMATION, { local_time }, DialogKey.confirm_local_time);
+  }
+   */
+
+  @transformMsg
+  @onlyForKnownUsers
+  public async ignoreSetOwnInterval(msg: TelegramBot.Message) {
+    await UsersRepo.updateUser(msg, { deltaTime: -1 });
+    await this._res(msg.user, Content.BOT_IGNORE_SET_OWN_INTERVAL);
   }
 
   @transformMsg
@@ -477,5 +491,14 @@ export class Actions extends Mixin(DevActions, Settings) {
     const donate_link = process.env.DONATE_LINK;
     const admin_email = process.env.ADMIN_EMAIL;
     await this._res(msg.user, Content.HOW, { donate_link, admin_email });
+  }
+
+  @transformMsg
+  @onlyForKnownUsers
+  public async onIdle(msg: TelegramBot.Message) {
+    const { user } = msg;
+    const buttonsForIdle = getIdleVariants(user.lang);
+    const no_penalty_time = minsToTimeString(user.deltaTime, user.lang);
+    await this._res(user, Content.BOT_IGNORE, { ...buttonsForIdle, no_penalty_time }, DialogKey.ignore);
   }
 }

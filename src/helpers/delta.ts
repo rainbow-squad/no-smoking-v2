@@ -2,6 +2,14 @@ import { User } from "../db";
 import { penaltyByDifficulty, stepByDifficulty } from "../helpers";
 
 /**
+ * Converts a time string in "h:mm" or "hh:mm" format to total minutes
+ */
+export const timeStringToDelta = (text: string): number => {
+  const [hours, minutes] = text.trim().split(":").map(Number);
+  return hours * 60 + minutes;
+};
+
+/**
  * Helper to calculate new delta time
  */
 export const computeNewDelta = (

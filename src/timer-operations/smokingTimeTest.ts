@@ -3,7 +3,6 @@ import { User, UsersRepo } from "../db";
 import { Content, DialogKey } from "../constants";
 import { getIdleVariants } from "../helpers/idle";
 import { minsToTimeString } from "../lib_helpers/humanize-duration";
-import { computeNewDelta } from "../helpers";
 import { isDayToSendChatLinkCheck } from "../lib_helpers/luxon";
 
 /**
@@ -28,17 +27,15 @@ export const _sendDelayedToSmokers = (bot: TgBot, users: User[], isDayOfChatLink
  * Only to use in smokingTimeTest
  * @private
  */
-export const _sendDelayedToIgnore = (bot: TgBot, users: User[]) => {
+export const _sendDelayedToInactiveUsers = (bot: TgBot, users: User[]) => {
   const user = users.pop();
   if (!user) {
     return;
   }
   const buttonsForIdle = getIdleVariants(user.lang);
   const no_penalty_time = minsToTimeString(user.deltaTime, user.lang);
-  const tenMinutesDelta = computeNewDelta(user, true);
-  const penalty_10_time= minsToTimeString(tenMinutesDelta, user.lang);
-  bot.sendToUser(user, Content.BOT_IGNORE, { ...buttonsForIdle, no_penalty_time, penalty_10_time }, DialogKey.ignore);
-  setTimeout(() => _sendDelayedToIgnore(bot, users), 10);
+  bot.sendToUser(user, Content.BOT_IGNORE, { ...buttonsForIdle, no_penalty_time }, DialogKey.ignore);
+  setTimeout(() => _sendDelayedToInactiveUsers(bot, users), 10);
 };
 
 /**
@@ -50,5 +47,5 @@ export const smokingTimeTest = async (bot: TgBot) => {
   const isDayOfChatLinkSending = isDayToSendChatLinkCheck();
   _sendDelayedToSmokers(bot, usersToSmoke, isDayOfChatLinkSending);
   const usersIgnoringBot = await UsersRepo.getAllIgnoringBot();
-  _sendDelayedToIgnore(bot, usersIgnoringBot);
+  _sendDelayedToInactiveUsers(bot, usersIgnoringBot);
 };

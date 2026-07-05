@@ -1,7 +1,7 @@
 import { BTN } from "../../constants";
 import { ButtonNames } from "../types";
 
-export const buttonsRu: ButtonNames  = {
+export const buttonsRu: ButtonNames = {
   [BTN.CallStart]: "/start",
   [BTN.Beginning]: "Начинаем!",
   [BTN.Im_Smoking]: "Я сейчас курю 🚬 (Legacy)",
@@ -22,7 +22,7 @@ export const buttonsRu: ButtonNames  = {
   [BTN.Ignore_Failed]: "Не буду бросать 👎",
   [BTN.Ignore_Full_Reset]: "С самого начала 🔄",
   [BTN.Ignore_Just_Go_On]: "Просто продолжим 👌",
-  [BTN.Ignore_Penalty_10]: "Штраф 10 минут 🔻",
+  [BTN.Ignore_Set_Own_Interval]: "Назначте самостоятельно 🔻",
   [BTN.Local_Time_Correct]: "Верно ✅",
   [BTN.Local_Time_Wrong]: "✏️ Изменить",
   [BTN.Local_Time_Plus_1]: "+ 1 час",

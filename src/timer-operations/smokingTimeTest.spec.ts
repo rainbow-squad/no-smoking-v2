@@ -3,7 +3,7 @@ import sinon from "sinon";
 import TgBot from "../telegram-bot";
 import { User } from "../db";
 import { Content, DialogKey, HourFormat, IdempotencyKeys, Lang } from "../constants";
-import { _sendDelayedToIgnore, _sendDelayedToSmokers } from "./smokingTimeTest";
+import { _sendDelayedToInactiveUsers, _sendDelayedToSmokers } from "./smokingTimeTest";
 
 describe("smokingTimeTest", () => {
   let clock: sinon.SinonFakeTimers;
@@ -106,7 +106,7 @@ describe("smokingTimeTest", () => {
     });
   });
 
-  describe("sendDelayedToIgnore", () => {
+  describe("sendDelayedToInactiveUsers", () => {
     let botMock: {
       sendToUser: sinon.SinonStub;
     };
@@ -119,14 +119,14 @@ describe("smokingTimeTest", () => {
 
     it("should not send message when users array is empty", () => {
       const users: User[] = [];
-      _sendDelayedToIgnore(botMock as unknown as TgBot, users);
+      _sendDelayedToInactiveUsers(botMock as unknown as TgBot, users);
       sinon.assert.notCalled(botMock.sendToUser);
     });
 
     it("should send ignore message to single user", () => {
       const users = [user];
 
-      _sendDelayedToIgnore(botMock as unknown as TgBot, users);
+      _sendDelayedToInactiveUsers(botMock as unknown as TgBot, users);
 
       sinon.assert.calledOnce(botMock.sendToUser);
       sinon.assert.calledWith(botMock.sendToUser, user, Content.BOT_IGNORE, sinon.match.object, DialogKey.ignore);
@@ -139,7 +139,7 @@ describe("smokingTimeTest", () => {
         { ...user, chatId: 3 },
       ];
 
-      _sendDelayedToIgnore(botMock as unknown as TgBot, [...users]);
+      _sendDelayedToInactiveUsers(botMock as unknown as TgBot, [...users]);
 
       // Check first call
       sinon.assert.calledOnce(botMock.sendToUser);
@@ -169,7 +169,7 @@ describe("smokingTimeTest", () => {
       ];
       const originalUsers = [...users];
 
-      _sendDelayedToIgnore(botMock as unknown as TgBot, users);
+      _sendDelayedToInactiveUsers(botMock as unknown as TgBot, users);
       clock.tick(10);
 
       // Check if array was modified
@@ -179,7 +179,7 @@ describe("smokingTimeTest", () => {
 
     it("should stop sending messages when all users are processed", () => {
       const users: User[] = [user];
-      _sendDelayedToIgnore(botMock as unknown as TgBot, users);
+      _sendDelayedToInactiveUsers(botMock as unknown as TgBot, users);
       clock.tick(20); // Advance more than one interval
       sinon.assert.calledOnce(botMock.sendToUser);
     });
