@@ -1773,3 +1773,76 @@ These messages should increase confidence and motivation without creating pressu
 - Use a positive, encouraging tone.
 - Avoid wording that sounds judgmental or overly emotional.
 - Preserve all formatting placeholders, placeholders, and emoji according to the general translation rules.
+
+---
+
+# Adding a New Language
+
+When introducing a new language, perform all of the following steps.
+
+## 1. Register the Language
+
+Add the language abbreviation to the `Lang` enum in:
+
+`src/constants.ts`
+
+Use the same language code format as Telegram (for example `en`, `ru`, `de`, `fr`, `es`, `it`).
+
+---
+
+## 2. Add Language Selection Buttons
+
+Extend the `BTN` enum with a new language button.
+
+Then add the corresponding button to **every existing button translation file**, including:
+
+- `src/content/buttons/buttons.ru.ts`
+- `src/content/buttons/buttons.en.ts`
+- and every other language file.
+
+The button should display the language code followed by the appropriate flag emoji.
+
+Example:
+
+```ts
+[BTN.Lang_EN]: "EN 🇬🇧"
+```
+
+---
+
+## 3. Create Translation Files
+
+Create translation files for the new language in all content directories:
+
+- `src/content/dialogs`
+- `src/content/buttons`
+- `src/content/motivizer`
+- `src/content/youcan`
+
+Each new file should contain translations corresponding to the Russian source.
+
+---
+
+## 4. Update Index Files
+
+After creating the new translation files, update the `index.ts` file inside each of the following directories:
+
+- `src/content/dialogs`
+- `src/content/buttons`
+- `src/content/motivizer`
+- `src/content/youcan`
+
+Export the newly created translation files so they become available to the application.
+
+---
+
+## 5. Preserve Translation Rules
+
+All translations must follow the rules described in this document, including:
+
+- terminology consistency;
+- formatting placeholders;
+- variable placeholders;
+- emoji preservation;
+- consistent button labels;
+- consistent tone and style.
