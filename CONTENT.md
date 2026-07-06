@@ -15,7 +15,7 @@ The actual source texts are located in the following files:
 - Smoking cessation reasons: `src/content/motivizer/motivizer.ru.ts`
 - Motivational messages: `src/content/youcan/youcan.ru.ts`
 
-Always use these files as the translation source.
+Always use these files as the translation source. Never translate from any other locale, including English translations of the same content.
 
 This document exists only to provide context for the translations.
 
@@ -1848,7 +1848,7 @@ The button should display the language code followed by the appropriate flag emo
 
 Example:
 
-```ts
+```text
 [BTN.Lang_EN]: "EN 🇬🇧"
 ```
 
