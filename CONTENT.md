@@ -1846,3 +1846,19 @@ All translations must follow the rules described in this document, including:
 - emoji preservation;
 - consistent button labels;
 - consistent tone and style.
+
+---
+
+## 6. Batch Processing Rule
+
+When translating or adding a new language, process content in small batches.
+
+- Do not translate the entire project in one pass.
+- Process no more than 5 translation entries at a time.
+- After translating each batch, save the modified file.
+- Only after saving the current batch, continue with the next batch.
+- For keyed objects, one entry means one translation key.
+- For arrays, one entry means one array item.
+- Preserve the original order of entries.
+- Do not skip entries.
+- After finishing a file, verify that every source entry has a corresponding translated entry.
