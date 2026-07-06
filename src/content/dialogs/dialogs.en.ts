@@ -189,7 +189,7 @@ export const dialogsEn: MultilineContent = {
   [Content.ON_IDLE_TIME_CONFIRMATION]: `⏰️ Let's sync our watches. Is it ${B}{{local_time}}${B} for you?`,
   [Content.ON_IDLE_STATS_1]: `Yesterday, you smoked ${B}{{cigarettes}}${B} times${NL}`,
   [Content.ON_IDLE_STATS_2]: `
-    The interval between your smoke smoke breaks has been recalculated:${NL}
+    The interval between your smoke breaks has been recalculated:${NL}
     Previous interval: {{prev_delta}}${NL}
     \\- Penalty points: {{penalty}} \\[{{penalty_mins}}\\]${NL} 
     \\+ Step {{step}}${NL}
@@ -256,7 +256,7 @@ export const dialogsEn: MultilineContent = {
     Penalties will then be applied, but they won’t bother you because you’ll already be prepared.${ND}
     ⬆️ ⬆️ ⬆️ ⬆️ ⬆️${NL}
     Your account setup will be completed${NL} 
-    🔜 ${B}automatically in 1 minute{B}.${NL}
+    🔜 ${B}automatically in 1 minute${B}.${NL}
     This pause is to ensure you’ve had time to read the message above.
   `,
   [Content.DIFFICULTY_HARD_DECREASED]: `
