@@ -46,6 +46,10 @@ export class Actions extends Mixin(DevActions, Settings) {
     contentProps: ContentProps = {},
     dialogKey?: DialogKey | InlineKeyboard,
   ): Promise<void> {
+    if (!user) {
+      logger.error("_res call - user is not defined");
+      return Promise.resolve();
+    }
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const contentPropsString = Object.entries(contentProps || {})
@@ -92,6 +96,7 @@ export class Actions extends Mixin(DevActions, Settings) {
    * @see {onlyForKnownUsers} - decorator
    */
   public async onUserUnknown(msg: TelegramBot.Message) {
+    console.log("on user on");
     const userOnlyRequired: Pick<User, "chatId" | "lang" | "hourFormat"> = {
       chatId: msg.chat.id,
       lang: tgLangCodeToLang(msg.from!.language_code).lang,
