@@ -163,7 +163,7 @@ export const dialogsEn: MultilineContent = {
   [Content.STAGE_2_PROPS_MISSING]: `
     💢 Error: Settings not found.${N2}
     To access this command, your user profile must be fully configured.${ND}
-    If you believe this is a mistake, please contact the developer at usesa@yandex.com{{admin_email}}
+    If you believe this is a mistake, please contact the developer in [our group chat](${tg_group_link})
   `,
   [Content.PENALTY]: `
     The app includes a Motivational Penalty System.${N2}

@@ -105,8 +105,7 @@ export class Actions extends Mixin(DevActions, Settings) {
    * @see {stage2} - decorator
    */
   public async stage2Protected(msg: TelegramBot.Message) {
-    const admin_email = process.env.ADMIN_EMAIL;
-    await this._res(msg.user, Content.STAGE_2_PROPS_MISSING, { admin_email });
+    await this._res(msg.user, Content.STAGE_2_PROPS_MISSING);
   }
 
   /**
