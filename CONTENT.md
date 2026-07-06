@@ -47,13 +47,15 @@ The flag line lists all supported languages using emoji flags (e.g. `🇷🇺 �
 
 Update all locale files — not just the new one.
 
-### 2. `DialogKey.dev_lang` Button Check in `src/content/index.ts`
+### 2. `DialogKey.lang` Button Check in `src/content/index.ts`
 
-Open `src/content/index.ts` and find the `DialogKey.dev_lang` branch inside `selectButtonsByKey`.
+Open `src/content/index.ts` and find the `DialogKey.lang` branch inside `selectButtonsByKey`.
 
 It must contain one `buttonFor` entry per supported language. If a button for the newly added language is missing, add it following the same pattern as the existing entries.
 
 Buttons must be arranged in rows of 2 elements each.
+
+The last row must always be the pair of RU and EN locales.
 
 ### 3. I18n `locales` Registration in `src/content/index.ts`
 
