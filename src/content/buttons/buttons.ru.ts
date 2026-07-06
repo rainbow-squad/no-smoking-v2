@@ -39,8 +39,6 @@ export const buttonsRu: ButtonNames = {
   [BTN.Lang_DE]: "DE 🇩🇪",
   [BTN.Dev_Content_RU]: "RU 🇷🇺",
   [BTN.Dev_Content_EN]: "EN 🇬🇧",
-  [BTN.Dev_Content_ES]: "ES 🇪🇸",
-  [BTN.Dev_Content_DE]: "DE 🇩🇪",
   [BTN.Dev_Delete_User]: "Удалить пользователя 🗑️",
   [BTN.Dev_To_Stage_1]: "Сбросить до Stage 1 🗯️",
   [BTN.Dev_Fill_Stage_1]: "Заполнить Stage 1 📈",

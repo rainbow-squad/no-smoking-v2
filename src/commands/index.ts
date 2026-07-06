@@ -47,6 +47,12 @@ export const botActionsInit = (bot: TgBot) => {
       case BTN.Lang_EN:
         act.changeLanguageHandler(message, Lang.EN);
         break;
+      case BTN.Lang_ES:
+        act.changeLanguageHandler(message, Lang.ES);
+        break;
+      case BTN.Lang_DE:
+        act.changeLanguageHandler(message, Lang.DE);
+        break;
       case BTN.Level_Change:
         act.onLevel(message);
         break;
@@ -166,12 +172,6 @@ export const botActionsInit = (bot: TgBot) => {
         break;
       case BTN.Dev_Content_EN:
         act.devAllContentRecursive(message, Lang.EN);
-        break;
-      case BTN.Dev_Content_ES:
-        act.devAllContentRecursive(message, Lang.ES);
-        break;
-      case BTN.Dev_Content_DE:
-        act.devAllContentRecursive(message, Lang.DE);
         break;
       default:
         logger.error(`Unsupported callback "${callbackType}"`);

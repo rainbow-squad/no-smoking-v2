@@ -53,17 +53,25 @@ Open `src/content/index.ts` and find the `DialogKey.lang` branch inside `selectB
 
 It must contain one `buttonFor` entry per supported language. If a button for the newly added language is missing, add it following the same pattern as the existing entries.
 
+Use buttons with the `Lang_` prefix (e.g. `BTN.Lang_ES`, `BTN.Lang_DE`).
+
 Buttons must be arranged in rows of 2 elements each.
 
 The last row must always be the pair of RU and EN locales.
 
-### 3. I18n `locales` Registration in `src/content/index.ts`
+### 3. Callback Handler in `src/commands/index.ts`
+
+Open `src/commands/index.ts` and find the `callbacks` section that handles language button presses.
+
+It must contain a `case` entry for each supported language's `BTN.Lang_` button. If the newly added language is missing, add it following the same pattern as the existing entries.
+
+### 4. I18n `locales` Registration in `src/content/index.ts`
 
 Open `src/content/index.ts` and find the `I18n` constructor call.
 
 The `locales` property must list every supported language. If the newly added language is missing from the array, add it.
 
-### 4. I18n Catalog Registration in `src/content/index.ts`
+### 5. I18n Catalog Registration in `src/content/index.ts`
 
 Open `src/content/index.ts` and find the section where `i18n.getCatalog()` is used to populate locale catalogs.
 

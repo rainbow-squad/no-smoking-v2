@@ -39,8 +39,7 @@ export const buttonsDe: ButtonNames = {
   [BTN.Lang_DE]: "DE 🇩🇪",
   [BTN.Dev_Content_RU]: "RU 🇷🇺",
   [BTN.Dev_Content_EN]: "EN 🇬🇧",
-  [BTN.Dev_Content_ES]: "ES 🇪🇸",
-  [BTN.Dev_Content_DE]: "DE 🇩🇪",
+  // DON'T CREATE ANY NEW DEV BUTTON
   [BTN.Dev_Delete_User]: "Delete user 🗑️",
   [BTN.Dev_To_Stage_1]: "Reset to Stage 1 🗯️",
   [BTN.Dev_Fill_Stage_1]: "Fill Stage 1 📈",
