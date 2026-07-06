@@ -226,6 +226,8 @@ export enum BTN {
   Dev_Content_All = "dev_content_all",
   Dev_Content_RU = "dev_content_ru",
   Dev_Content_EN = "dev_content_en",
+  Dev_Content_ES = "dev_content_es",
+  Dev_Content_DE = "dev_content_de",
   Recommendations = "recommendations",
 }
 
