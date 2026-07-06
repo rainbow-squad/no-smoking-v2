@@ -92,11 +92,12 @@ export class Actions extends Mixin(DevActions, Settings) {
    * @see {onlyForKnownUsers} - decorator
    */
   public async onUserUnknown(msg: TelegramBot.Message) {
-    const fakeUser = {
+    const userOnlyRequired: Pick<User, "chatId" | "lang" | "hourFormat"> = {
       chatId: msg.chat.id,
-      lang: tgLangCodeToLang(msg.from!.language_code),
+      lang: tgLangCodeToLang(msg.from!.language_code).lang,
       hourFormat: HourFormat.H24,
-    } as unknown as User;
+    };
+    const fakeUser = userOnlyRequired as unknown as User;
     await this._res(fakeUser, Content.USER_UNKNOWN, {}, DialogKey.to_start);
   }
 
