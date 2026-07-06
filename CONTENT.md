@@ -1,3 +1,24 @@
+# Translation Context
+
+## Purpose
+
+This document provides contextual information for translating the application's user interface.
+
+It is **not** the source of translatable strings. Instead, it explains the meaning, usage, and intent of dialogs, messages, and button labels so that translations remain accurate and consistent across all supported languages.
+
+## Translation Sources
+
+The actual source texts are located in the following files:
+
+- Dialogs and content messages: `src/content/dialogs/dialogs.ru.ts`
+- Button labels: `src/content/buttons/buttons.ru.ts`
+- Smoking cessation reasons: `src/content/motivizer/motivizer.ru.ts`
+- Motivational messages: `src/content/youcan/youcan.ru.ts`
+
+Always use these files as the translation source.
+
+This document exists only to provide context for the translations.
+
 # Domain Terminology
 
 - **Smoking break** — an instance of smoking a cigarette. Use this term consistently instead of alternatives such as "smoke" or "cigarette break".
@@ -13,7 +34,7 @@
 - Preserve placeholders (for example `{{delta_time}}`) exactly.
 - Preserve commands such as `/start` exactly.
 - Preserve button names exactly as they appear in the source strings unless the button label itself is being translated.
- 
+
 ## General Translation Rules
 
 - This document provides context only. The actual source strings are stored separately.
@@ -1704,3 +1725,51 @@ Developer-only buttons.
 ### Translation Notes
 
 - Do not translate.
+
+---
+
+# Translation Context for Text Collections
+
+Unlike dialogs and buttons, the following files contain plain arrays of text and do not use translation keys.
+
+---
+
+## Smoking Cessation Reasons
+
+### Source
+
+`src/content/motivizer/motivizer.ru.ts`
+
+### Context
+
+This file contains a collection of short reasons explaining why quitting smoking is beneficial.
+
+The application displays these messages to encourage users throughout their journey.
+
+### Translation Notes
+
+- Each array element should be translated independently.
+- Preserve the original meaning rather than translating literally.
+- Keep the messages concise and motivational.
+- Preserve all formatting placeholders, placeholders, and emoji according to the general translation rules.
+
+---
+
+## Motivational Messages
+
+### Source
+
+`src/content/youcan/youcan.ru.ts`
+
+### Context
+
+This file contains short motivational messages shown to encourage users to continue the program.
+
+These messages should increase confidence and motivation without creating pressure or guilt.
+
+### Translation Notes
+
+- Each array element should be translated independently.
+- Use a positive, encouraging tone.
+- Avoid wording that sounds judgmental or overly emotional.
+- Preserve all formatting placeholders, placeholders, and emoji according to the general translation rules.
