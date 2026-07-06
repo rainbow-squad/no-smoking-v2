@@ -25,6 +25,22 @@
 - When the application adapts to the user's progress (for example by lowering difficulty), present it as supportive rather than as a punishment.
 - Do not translate developer-only messages (`Content.DEV*`).
 
+## Formatting Rules
+
+When translating content messages, preserve the original formatting exactly.
+
+- Keep the same paragraph structure as the source text.
+- Preserve all formatting placeholders exactly as they appear:
+    - `${NL}` — line break
+    - `${N2}` — double line break
+    - `${ND}` — divider or large section break
+    - `${B}` — bold formatting
+    - `${I}` — italic formatting
+- Do not remove, rename, or reorder formatting placeholders.
+- Formatting should follow the translated text in the same way it is used in the source.
+- If the source emphasizes a word or phrase using `${B}` or `${I}`, the translated text should emphasize the corresponding translated word or phrase, not necessarily the exact same word position.
+- Preserve all other placeholders (for example `{{delta_time}}`, `{{error}}`) exactly as written.
+
 # Content Messages
 
 This section provides contextual information for translating common content messages. The source strings already exist in the translation file.

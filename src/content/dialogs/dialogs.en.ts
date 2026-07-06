@@ -344,12 +344,11 @@ export const dialogsEn: MultilineContent = {
     You just need to finish what you started.
   `,
   [Content.BOT_IGNORE_SET_OWN_INTERVAL]: `
-    You chose to "${B}set your own interval${B}".
+    You chose to "${B}set your own interval${B}".${N2}
     This is the best option for experienced users.${N2}
-    We truly appreciate your decision to continue 👍${ND}
-    Please enter the interval you need in 24h format.${N2}
+    Please enter the interval you need in 24h format.${ND}
     Examples:${NL}
-    {{time_sample}}, 2:30, 3:15, 5:55
+    2:30, 3:15, 5:55
   `,
   [Content.BOT_IGNORE_FAILED]: `
     You decided ${B}not to quit smoking${B} 🤯${ND}
