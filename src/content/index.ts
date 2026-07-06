@@ -3,13 +3,13 @@ import { I18n, LocaleCatalog, Replacements } from "i18n";
 import { BTN, Content, DialogKey, Lang, Motivizer, YouCan } from "../constants";
 import { newLineRegexp } from "./dialogs/constants";
 import { ButtonOption, ContentProps, InlineKeyboard, MultilineContent, TMotivizer, TYouCan } from "./types";
-import { dialogsEn, dialogsRu } from "./dialogs";
-import { buttonsEn, buttonsRu } from "./buttons";
-import { motivizerEn, motivizerRu } from "./motivizer";
-import { youcanEn, youcanRu } from "./youcan";
+import { dialogsEn, dialogsRu, dialogsEs, dialogsDe } from "./dialogs";
+import { buttonsEn, buttonsRu, buttonsEs, buttonsDe } from "./buttons";
+import { motivizerEn, motivizerRu, motivizerEs, motivizerDe } from "./motivizer";
+import { youcanEn, youcanRu, youcanEs, youcanDe } from "./youcan";
 
 const i18n = new I18n({
-  locales: [Lang.RU, Lang.EN],
+  locales: [Lang.RU, Lang.EN, Lang.ES, Lang.DE],
   defaultLocale: Lang.EN,
   updateFiles: false,
   syncFiles: false,
@@ -58,6 +58,18 @@ catalog[Lang.EN] = {
   [Motivizer]: transformMotivizerContent(motivizerEn),
   [YouCan]: youcanEn,
 } as unknown as LocaleCatalog;
+catalog[Lang.ES] = {
+  ...transformMultilineContent(dialogsEs),
+  ...buttonsEs,
+  [Motivizer]: transformMotivizerContent(motivizerEs),
+  [YouCan]: youcanEs,
+} as unknown as LocaleCatalog;
+catalog[Lang.DE] = {
+  ...transformMultilineContent(dialogsDe),
+  ...buttonsDe,
+  [Motivizer]: transformMotivizerContent(motivizerDe),
+  [YouCan]: youcanDe,
+} as unknown as LocaleCatalog;
 
 /**
  * Content
@@ -93,16 +105,13 @@ const selectButtonsByKey = (key: DialogKey, locale: Lang): InlineKeyboard => {
     return [[buttonFor(BTN.Beginning, locale)]];
   }
   if (key === DialogKey.lang) {
-    return [[
-      buttonFor(BTN.Lang_RU, locale),
-      buttonFor(BTN.Lang_EN, locale),
-    ]];
+    return [
+      [buttonFor(BTN.Lang_ES, locale), buttonFor(BTN.Lang_DE, locale)],
+      [buttonFor(BTN.Lang_RU, locale), buttonFor(BTN.Lang_EN, locale)],
+    ];
   }
   if (key === DialogKey.dev_lang) {
-    return [[
-      buttonFor(BTN.Dev_Content_RU, locale),
-      buttonFor(BTN.Dev_Content_EN, locale),
-    ]];
+    return [[buttonFor(BTN.Dev_Content_RU, locale), buttonFor(BTN.Dev_Content_EN, locale)]];
   }
   if (key === DialogKey.im_smoking_init_1) {
     return [

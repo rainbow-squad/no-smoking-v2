@@ -20,7 +20,7 @@ export const dialogsEn: MultilineContent = {
     Together, we can do it 🤙${ND}
     Supported languages${NL}
     Click here ➤ /lang ${NL}
-    🇷🇺 🇬🇧 
+    🇷🇺 🇬🇧 🇪🇸 🇩🇪
   `,
   [Content.START_EXISTING]: `
     Hey! ✌️${N2}
@@ -163,7 +163,7 @@ export const dialogsEn: MultilineContent = {
   [Content.STAGE_2_PROPS_MISSING]: `
     💢 Error: Settings not found.${N2}
     To access this command, your user profile must be fully configured.${ND}
-    If you believe this is a mistake, please contact the developer at usesa@yandex.com{{admin_email}}
+    If you believe this is a mistake, please contact the developer in [our group chat](${tg_group_link})
   `,
   [Content.PENALTY]: `
     The app includes a Motivational Penalty System.${N2}
@@ -189,7 +189,7 @@ export const dialogsEn: MultilineContent = {
   [Content.ON_IDLE_TIME_CONFIRMATION]: `⏰️ Let's sync our watches. Is it ${B}{{local_time}}${B} for you?`,
   [Content.ON_IDLE_STATS_1]: `Yesterday, you smoked ${B}{{cigarettes}}${B} times${NL}`,
   [Content.ON_IDLE_STATS_2]: `
-    The interval between your smoke smoke breaks has been recalculated:${NL}
+    The interval between your smoke breaks has been recalculated:${NL}
     Previous interval: {{prev_delta}}${NL}
     \\- Penalty points: {{penalty}} \\[{{penalty_mins}}\\]${NL} 
     \\+ Step {{step}}${NL}
@@ -256,7 +256,7 @@ export const dialogsEn: MultilineContent = {
     Penalties will then be applied, but they won’t bother you because you’ll already be prepared.${ND}
     ⬆️ ⬆️ ⬆️ ⬆️ ⬆️${NL}
     Your account setup will be completed${NL} 
-    🔜 ${B}automatically in 1 minute{B}.${NL}
+    🔜 ${B}automatically in 1 minute${B}.${NL}
     This pause is to ensure you’ve had time to read the message above.
   `,
   [Content.DIFFICULTY_HARD_DECREASED]: `
@@ -344,12 +344,11 @@ export const dialogsEn: MultilineContent = {
     You just need to finish what you started.
   `,
   [Content.BOT_IGNORE_SET_OWN_INTERVAL]: `
-    You chose to "${B}set your own interval${B}".
+    You chose to "${B}set your own interval${B}".${N2}
     This is the best option for experienced users.${N2}
-    We truly appreciate your decision to continue 👍${ND}
-    Please enter the interval you need in 24h format.${N2}
+    Please enter the interval you need in 24h format.${ND}
     Examples:${NL}
-    {{time_sample}}, 2:30, 3:15, 5:55
+    2:30, 3:15, 5:55
   `,
   [Content.BOT_IGNORE_FAILED]: `
     You decided ${B}not to quit smoking${B} 🤯${ND}

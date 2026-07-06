@@ -6,6 +6,8 @@
 export enum Lang {
   EN = "en",
   RU = "ru",
+  ES = "es",
+  DE = "de",
 }
 
 /**
@@ -34,6 +36,8 @@ export enum TimeShifting {
   Plus_30Min = "30_min_plus",
   Minus_30Min = "30_min_minus",
 }
+
+export const hourMinutesRegexp = /^([0-1]?\d|2[0-3]):[0-5]\d$/;
 
 /**
  * Constant to define all the available content keys
@@ -179,6 +183,8 @@ export enum BTN {
   Forgot_To_Use_Smoking_Button = "forgot_to_use_smoking_button",
   Lang_RU = "lang_ru",
   Lang_EN = "lang_en",
+  Lang_ES = "lang_es",
+  Lang_DE = "lang_de",
   Reset_Stage_1 = "reset_to_stage_1",
   Reset_Stage_2 = "reset_to_stage_2",
   Reset_Ignore = "reset_ignore",

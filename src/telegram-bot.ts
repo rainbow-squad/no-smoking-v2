@@ -57,6 +57,10 @@ class TgBot extends TelegramBot {
     if (dialogKey && Array.isArray(dialogKey)) {
       options.reply_markup = { inline_keyboard: dialogKey };
     }
+    if (!content) {
+      logger.error(`Content for U-${user.chatId} not found, key: "${contentKey}"`, { contentKey, contentProps });
+      return this.sendMessage(user.chatId, "Something went wrong. Please try again later.");
+    }
     return this.sendMessage(user.chatId, content, options);
   };
 }

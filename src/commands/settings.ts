@@ -10,6 +10,7 @@ import { IGNORE_TIME } from "./constants";
 import { PlainUser } from "../global";
 import { daysToString, minsToTimeString } from "../lib_helpers/humanize-duration";
 import { getNextIdempotencyKey, smokingButtonByIdempotencyKey } from "../helpers/idempotency";
+import { onlyTimeMessagesAllowed } from "./decorators/onlyTimeMessagesAllowed";
 
 export class Settings {
   /**
@@ -155,6 +156,7 @@ export class Settings {
     }, oneMinute);
   }
 
+  @onlyTimeMessagesAllowed
   @transformMsg
   public async onMessage(msg: TelegramBot.Message) {
     // not for new users
@@ -170,9 +172,6 @@ export class Settings {
     if (msg.user.timezone && !isCustomIntervalSetting) {
       return Promise.resolve();
     }
-    if (!/^([0-1]?\d|2[0-3]):[0-5]\d$/.test(msg.text!.trim())) {
-      return;
-    }
     if (isCustomIntervalSetting) {
       try {
         const deltaTime = timeStringToDelta(msg.text!.trim());
@@ -180,7 +179,6 @@ export class Settings {
         await UsersRepo.updateUser(msg, {
           deltaTime,
           idempotencyKey,
-          minDeltaTime: deltaTime,
           minDeltaTimesInitial: [],
           penaltyDays: 0,
           cigarettesInDay: 0,
@@ -234,7 +232,12 @@ export class Settings {
       const time_to_get_smoke = mssToTime(nextTime, msg.user);
       const delta_time = minsToTimeString(msg.user.deltaTime, msg.user.lang);
       await this._res(msg.user, Content.STAGE_2_INITIAL, { delta_time });
-      await this._res(msg.user, Content.NEXT_SMOKING_TIME, { time_to_get_smoke }, smokingButtonByIdempotencyKey(msg.user.idempotencyKey) );
+      await this._res(
+        msg.user,
+        Content.NEXT_SMOKING_TIME,
+        { time_to_get_smoke },
+        smokingButtonByIdempotencyKey(msg.user.idempotencyKey),
+      );
       return;
     }
 
@@ -254,8 +257,8 @@ export class Settings {
       const winstrikeDays = daysToString(msg.user.winstrike, msg.user.lang);
       await this._res(msg.user, Content.WINSTRIKE, { winstrike: winstrikeDays });
     }
-    const shouldOfferUpLevelForMedium = msg.user.difficulty === Difficulty.MEDIUM
-      && msg.user.winstrike % DAYS_TO_CHANGE_DIFFICULTY ===0;
+    const shouldOfferUpLevelForMedium =
+      msg.user.difficulty === Difficulty.MEDIUM && msg.user.winstrike % DAYS_TO_CHANGE_DIFFICULTY === 0;
     const shouldOfferLevelUp = isEasyDifficulty || shouldOfferUpLevelForMedium;
     if (shouldOfferLevelUp && !isIgnoreHint && isWinstrike) {
       await this._res(msg.user, Content.WINSTRIKE_BASE_SUCCESS, {}, DialogKey.change_level);

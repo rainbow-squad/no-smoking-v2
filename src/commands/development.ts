@@ -8,7 +8,7 @@ import { MIN_INTERVAL, STAGE_1_MAX, STAGE_1_STEPS, USER_IDLE_TIME } from "./cons
 import { getContent } from "../content";
 import { daysToString, minsToTimeString } from "../lib_helpers/humanize-duration";
 import { difficultyNameByLevel, penaltyMinutesString, stepByDifficulty } from "../helpers";
-import { getNextIdempotencyKey, smokingButtonByIdempotencyKey } from "../helpers/idempotency";
+import { getNextIdempotencyKey } from "../helpers/idempotency";
 
 /**
  * Class for development actions
@@ -17,7 +17,7 @@ import { getNextIdempotencyKey, smokingButtonByIdempotencyKey } from "../helpers
 export class DevActions {
   get lastTimeToSmoke() {
     const validInterval = MIN_INTERVAL + 1;
-    return dateNow() - (validInterval * 60 * 1000);
+    return dateNow() - validInterval * 60 * 1000;
   }
 
   get nextTimeToSmoke() {
@@ -51,6 +51,7 @@ export class DevActions {
 
   @devModeOnly
   @transformMsg
+  @onlyForKnownUsers
   public async onDev(msg: TelegramBot.Message) {
     await this._res(msg.user, Content.DEV, {}, DialogKey.dev);
   }
@@ -92,7 +93,7 @@ export class DevActions {
   @onlyForKnownUsers
   public async devLastTimeMinusHour(msg: TelegramBot.Message) {
     const update: Partial<User> = {
-      lastTime: dateNow() - (60 * 60 * 1000),
+      lastTime: dateNow() - 60 * 60 * 1000,
       nextTime: dateNow() - 1,
     };
     await UsersRepo.updateUser(msg, update);
@@ -104,7 +105,7 @@ export class DevActions {
   @onlyForKnownUsers
   public async devStage1MoreThanMax(msg: TelegramBot.Message) {
     const update: Partial<User> = {
-      lastTime: dateNow() - ((STAGE_1_MAX + 1) * 60 * 1000),
+      lastTime: dateNow() - (STAGE_1_MAX + 1) * 60 * 1000,
     };
     await UsersRepo.updateUser(msg, update);
     await this._res(msg.user, Content.DEV_STAGE_1_MORE_THAN_MAX);
@@ -113,10 +114,14 @@ export class DevActions {
   @devModeOnly
   @transformMsg
   @onlyForKnownUsers
-  public async devToIdle(msg: TelegramBot.Message, isEmpty = false, { isThree, isInMaxPossibleDeltaTime }: Record<string, boolean> = {}) {
+  public async devToIdle(
+    msg: TelegramBot.Message,
+    isEmpty = false,
+    { isThree, isInMaxPossibleDeltaTime }: Record<string, boolean> = {},
+  ) {
     const currentDate = dateNow();
     const update: Partial<User> = {
-      lastTime: currentDate - ((USER_IDLE_TIME + 1)* 60 * 1000),
+      lastTime: currentDate - (USER_IDLE_TIME + 1) * 60 * 1000,
       nextTime: currentDate - msg.user.deltaTime * 1000,
       cigarettesInDay: 2,
       penaltyDays: 0,
@@ -231,9 +236,11 @@ export class DevActions {
   @transformMsg
   @onlyForKnownUsers
   public async devContent(msg: TelegramBot.Message) {
-    const smokingButtonKey = smokingButtonByIdempotencyKey(msg.user.idempotencyKey);
-    await this._res(msg.user, Content.STAGE_1_FORGOT_TO_CLICK, {}, smokingButtonKey);
+    await this._res(msg.user, Content.BOT_IGNORE_SET_OWN_INTERVAL);
     /*
+    // const smokingButtonKey = smokingButtonByIdempotencyKey(msg.user.idempotencyKey);
+    // await this._res(msg.user, Content.STAGE_1_FORGOT_TO_CLICK, {}, smokingButtonKey);
+
       const smokingButtonKey = smokingButtonByIdempotencyKey(msg.user.idempotencyKey);
       const time_to_get_smoke = mssToTime(msg.user.nextTime, msg.user);
       const delta_time = minsToTimeString(msg.user.deltaTime, msg.user.lang);
@@ -278,12 +285,9 @@ export class DevActions {
         callResRecursive(promises);
       }, oneSec);
     };
-    const user = {  ...msg.user, lang };
+    const user = { ...msg.user, lang };
     const fakeProps = this.getDevContentProps(user);
-    const allContentCalls =
-      Object.values(Content).map((contentKey) =>
-        () => this._res(user, contentKey, fakeProps)
-      );
+    const allContentCalls = Object.values(Content).map((contentKey) => () => this._res(user, contentKey, fakeProps));
     return callResRecursive(allContentCalls);
   }
 }

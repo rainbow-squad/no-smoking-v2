@@ -92,11 +92,12 @@ export class Actions extends Mixin(DevActions, Settings) {
    * @see {onlyForKnownUsers} - decorator
    */
   public async onUserUnknown(msg: TelegramBot.Message) {
-    const fakeUser = {
+    const userOnlyRequired: Pick<User, "chatId" | "lang" | "hourFormat"> = {
       chatId: msg.chat.id,
-      lang: tgLangCodeToLang(msg.from!.language_code),
+      lang: tgLangCodeToLang(msg.from!.language_code).lang,
       hourFormat: HourFormat.H24,
-    } as unknown as User;
+    };
+    const fakeUser = userOnlyRequired as unknown as User;
     await this._res(fakeUser, Content.USER_UNKNOWN, {}, DialogKey.to_start);
   }
 
@@ -105,8 +106,7 @@ export class Actions extends Mixin(DevActions, Settings) {
    * @see {stage2} - decorator
    */
   public async stage2Protected(msg: TelegramBot.Message) {
-    const admin_email = process.env.ADMIN_EMAIL;
-    await this._res(msg.user, Content.STAGE_2_PROPS_MISSING, { admin_email });
+    await this._res(msg.user, Content.STAGE_2_PROPS_MISSING);
   }
 
   /**
