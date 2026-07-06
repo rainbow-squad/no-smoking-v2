@@ -35,6 +35,8 @@ export enum TimeShifting {
   Minus_30Min = "30_min_minus",
 }
 
+export const hourMinutesRegexp = /^([0-1]?\d|2[0-3]):[0-5]\d$/;
+
 /**
  * Constant to define all the available content keys
  * @note Define content keys here before using it in the code
