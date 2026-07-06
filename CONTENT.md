@@ -35,6 +35,38 @@ This document exists only to provide context for the translations.
 - Preserve commands such as `/start` exactly.
 - Preserve button names exactly as they appear in the source strings unless the button label itself is being translated.
 
+## Post-Translation Checklist for AI Agents
+
+After completing a translation to any language, you **must** perform the following two checks:
+
+### 1. Flag Check in `Content.START_NEW`
+
+Open every locale's dialogs file (e.g. `dialogs.ru.ts`, `dialogs.en.ts`, and any other existing locale files) and locate the `Content.START_NEW` entry.
+
+The flag line lists all supported languages using emoji flags (e.g. `🇷🇺 🇬🇧 🇪🇸 🇩🇪`). If the newly added language is not represented by its flag emoji in **every** locale's `Content.START_NEW`, add it.
+
+Update all locale files — not just the new one.
+
+### 2. `DialogKey.dev_lang` Button Check in `src/content/index.ts`
+
+Open `src/content/index.ts` and find the `DialogKey.dev_lang` branch inside `selectButtonsByKey`.
+
+It must contain one `buttonFor` entry per supported language. If a button for the newly added language is missing, add it following the same pattern as the existing entries.
+
+### 3. I18n `locales` Registration in `src/content/index.ts`
+
+Open `src/content/index.ts` and find the `I18n` constructor call.
+
+The `locales` property must list every supported language. If the newly added language is missing from the array, add it.
+
+### 4. I18n Catalog Registration in `src/content/index.ts`
+
+Open `src/content/index.ts` and find the section where `i18n.getCatalog()` is used to populate locale catalogs.
+
+Each supported language must have a corresponding catalog entry that includes its dialogs, buttons, motivizer, and youcan content. If the newly added language is missing, add a catalog entry following the same pattern as the existing ones.
+
+---
+
 ## General Translation Rules
 
 - This document provides context only. The actual source strings are stored separately.
