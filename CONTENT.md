@@ -25,21 +25,31 @@
 - When the application adapts to the user's progress (for example by lowering difficulty), present it as supportive rather than as a punishment.
 - Do not translate developer-only messages (`Content.DEV*`).
 
-## Formatting Rules
+## Formatting and Style Rules
 
-When translating content messages, preserve the original formatting exactly.
+When translating content messages, preserve the original formatting and presentation.
 
-- Keep the same paragraph structure as the source text.
-- Preserve all formatting placeholders exactly as they appear:
-    - `${NL}` — line break
-    - `${N2}` — double line break
-    - `${ND}` — divider or large section break
-    - `${B}` — bold formatting
-    - `${I}` — italic formatting
+### Formatting
+
+- Keep the same paragraph structure as the source.
+- Preserve all formatting placeholders exactly:
+  - `${NL}` — line break
+  - `${N2}` — double line break
+  - `${ND}` — section break
+  - `${B}` — bold
+  - `${I}` — italic
 - Do not remove, rename, or reorder formatting placeholders.
-- Formatting should follow the translated text in the same way it is used in the source.
-- If the source emphasizes a word or phrase using `${B}` or `${I}`, the translated text should emphasize the corresponding translated word or phrase, not necessarily the exact same word position.
-- Preserve all other placeholders (for example `{{delta_time}}`, `{{error}}`) exactly as written.
+- Preserve emphasis. If the source uses `${B}` or `${I}`, the translated text should emphasize the corresponding translated word or phrase.
+
+### Placeholders
+
+- Preserve every placeholder exactly as written (for example `{{delta_time}}`, `{{error}}`).
+
+### Emoji
+
+- Preserve all emoji exactly as they appear in the source.
+- Do not replace, remove, or add emoji.
+- Preserve the original emoji order and placement whenever possible.
 
 # Content Messages
 
