@@ -53,6 +53,8 @@ Open `src/content/index.ts` and find the `DialogKey.dev_lang` branch inside `sel
 
 It must contain one `buttonFor` entry per supported language. If a button for the newly added language is missing, add it following the same pattern as the existing entries.
 
+Buttons must be arranged in rows of 2 elements each.
+
 ### 3. I18n `locales` Registration in `src/content/index.ts`
 
 Open `src/content/index.ts` and find the `I18n` constructor call.

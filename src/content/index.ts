@@ -111,12 +111,10 @@ const selectButtonsByKey = (key: DialogKey, locale: Lang): InlineKeyboard => {
     ]];
   }
   if (key === DialogKey.dev_lang) {
-    return [[
-      buttonFor(BTN.Dev_Content_RU, locale),
-      buttonFor(BTN.Dev_Content_EN, locale),
-      buttonFor(BTN.Dev_Content_ES, locale),
-      buttonFor(BTN.Dev_Content_DE, locale),
-    ]];
+    return [
+      [buttonFor(BTN.Dev_Content_RU, locale), buttonFor(BTN.Dev_Content_EN, locale)],
+      [buttonFor(BTN.Dev_Content_ES, locale), buttonFor(BTN.Dev_Content_DE, locale)],
+    ];
   }
   if (key === DialogKey.im_smoking_init_1) {
     return [
