@@ -66,6 +66,50 @@ When translating content messages, preserve the original formatting and presenta
 
 - Preserve every placeholder exactly as written (for example `{{delta_time}}`, `{{error}}`).
 
+### Formatting Placeholders
+
+Formatting placeholders are literal text tokens.
+
+They are **not** JavaScript template strings and **must not** be escaped, modified, or interpreted.
+
+Correct examples:
+
+```text
+${NL}
+${N2}
+${ND}
+${B}
+${I}
+```
+
+Incorrect examples:
+
+```text
+\${NL}
+\\${NL}
+\${B}
+```
+
+Always copy formatting placeholders exactly as they appear in the source.
+
+### Literal Tokens
+
+The following tokens are literal parts of the source text and must be copied verbatim:
+
+- `${NL}`
+- `${N2}`
+- `${ND}`
+- `${B}`
+- `${I}`
+- `{{...}}`
+- `/start`
+- `/stats`
+
+Never escape these tokens with backslashes.
+Never insert additional backslashes.
+Never wrap them in quotes.
+Never translate or modify them.
+
 ### Emoji
 
 - Preserve all emoji exactly as they appear in the source.
