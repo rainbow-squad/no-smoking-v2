@@ -1,6 +1,6 @@
 import TelegramBot from "node-telegram-bot-api";
 import logger from "../logger";
-import { Content, DialogKey, Difficulty, Lang, Motivizer } from "../constants";
+import { Content, DialogKey, Difficulty, HourFormat, Lang, Motivizer } from "../constants";
 import { dateNow, getFormattedStartDate, mssToTime } from "../lib_helpers/luxon";
 import { User, UsersRepo } from "../db";
 import { devModeOnly, onlyForKnownUsers, transformMsg } from "./decorators";
@@ -9,6 +9,7 @@ import { getContent } from "../content";
 import { daysToString, minsToTimeString } from "../lib_helpers/humanize-duration";
 import { difficultyNameByLevel, penaltyMinutesString, stepByDifficulty } from "../helpers";
 import { getNextIdempotencyKey } from "../helpers/idempotency";
+import { tgLangCodeToLang } from "../lib_helpers/i18n";
 
 /**
  * Class for development actions
@@ -46,7 +47,13 @@ export class DevActions {
    * This method is called by "devModeOnly" decorator when dev mode is disabled
    */
   public async devModeDisabled(msg: TelegramBot.Message) {
-    await this._res(msg.user, Content.DEV_OFF);
+    const userOnlyRequired: Pick<User, "chatId" | "lang" | "hourFormat"> = {
+      chatId: msg.chat.id,
+      lang: tgLangCodeToLang(msg.from!.language_code).lang,
+      hourFormat: HourFormat.H24,
+    };
+    const fakeUser = userOnlyRequired as unknown as User;
+    await this._res(fakeUser, Content.DEV_OFF);
   }
 
   @devModeOnly
