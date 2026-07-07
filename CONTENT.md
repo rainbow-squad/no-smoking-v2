@@ -1950,3 +1950,14 @@ When translating or adding a new language, process content in small batches.
 - Preserve the original order of entries.
 - Do not skip entries.
 - After finishing a file, verify that every source entry has a corresponding translated entry.
+
+## File Creation
+
+When creating new translation files, always use bash (`execute_bash`) to create them instead of the file-writing tool.
+
+First, create the empty file with `touch`, then write the content using `str_replace` or `append`.
+
+Example:
+```bash
+touch src/content/dialogs/dialogs.it.ts
+```
