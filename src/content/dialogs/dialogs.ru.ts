@@ -21,7 +21,7 @@ export const dialogsRu: MultilineContent = {
     Вместе мы это сможем 🤙${ND}
     Supported languages${NL}
     Click here ➤ /lang ${NL}
-    🇷🇺 🇬🇧 🇪🇸 🇩🇪
+    🇷🇺 🇬🇧 🇪🇸 🇩🇪 🇮🇹
   `,
   [Content.START_EXISTING]: `
     Привет! ✌️${N2}
