@@ -20,7 +20,7 @@ export const dialogsZh: MultilineContent = {
     我们一起能做到 🤙${ND}
     Supported languages${NL}
     Click here ➤ /lang ${NL}
-    🇷🇺 🇬🇧 🇪🇸 🇩🇪 🇮🇹 🇹🇷 🇨🇳
+    🇷🇺 🇬🇧 🇪🇸 🇩🇪 🇮🇹 🇹🇷 🇨🇳 🇸🇦
   `,
   [Content.START_EXISTING]: `
     你好！✌️${N2}

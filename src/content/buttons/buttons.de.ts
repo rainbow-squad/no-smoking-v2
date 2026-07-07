@@ -40,6 +40,7 @@ export const buttonsDe: ButtonNames = {
   [BTN.Lang_IT]: "IT 🇮🇹",
   [BTN.Lang_TR]: "TR 🇹🇷",
   [BTN.Lang_ZH]: "ZH 🇨🇳",
+  [BTN.Lang_AR]: "AR 🇸🇦",
   [BTN.Dev_Content_RU]: "RU 🇷🇺",
   [BTN.Dev_Content_EN]: "EN 🇬🇧",
   // DON'T CREATE ANY NEW DEV BUTTON

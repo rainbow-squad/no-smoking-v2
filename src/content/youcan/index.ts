@@ -5,3 +5,4 @@ export * from "./youcan.de";
 export * from "./youcan.it";
 export * from "./youcan.tr";
 export * from "./youcan.zh";
+export * from "./youcan.ar";

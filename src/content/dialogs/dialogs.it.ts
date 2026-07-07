@@ -20,7 +20,7 @@ export const dialogsIt: MultilineContent = {
     Insieme ce la faremo 🤙${ND}
     Supported languages${NL}
     Click here ➤ /lang ${NL}
-    🇷🇺 🇬🇧 🇪🇸 🇩🇪 🇮🇹 🇹🇷 🇨🇳
+    🇷🇺 🇬🇧 🇪🇸 🇩🇪 🇮🇹 🇹🇷 🇨🇳 🇸🇦
   `,
   [Content.START_EXISTING]: `
     Ciao! ✌️${N2}

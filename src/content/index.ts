@@ -3,13 +3,13 @@ import { I18n, LocaleCatalog, Replacements } from "i18n";
 import { BTN, Content, DialogKey, Lang, Motivizer, YouCan } from "../constants";
 import { newLineRegexp } from "./dialogs/constants";
 import { ButtonOption, ContentProps, InlineKeyboard, MultilineContent, TMotivizer, TYouCan } from "./types";
-import { dialogsEn, dialogsRu, dialogsEs, dialogsDe, dialogsIt, dialogsTr, dialogsZh } from "./dialogs";
-import { buttonsEn, buttonsRu, buttonsEs, buttonsDe, buttonsIt, buttonsTr, buttonsZh } from "./buttons";
-import { motivizerEn, motivizerRu, motivizerEs, motivizerDe, motivizerIt, motivizerTr, motivizerZh } from "./motivizer";
-import { youcanEn, youcanRu, youcanEs, youcanDe, youcanIt, youcanTr, youcanZh } from "./youcan";
+import { dialogsEn, dialogsRu, dialogsEs, dialogsDe, dialogsIt, dialogsTr, dialogsZh, dialogsAr } from "./dialogs";
+import { buttonsEn, buttonsRu, buttonsEs, buttonsDe, buttonsIt, buttonsTr, buttonsZh, buttonsAr } from "./buttons";
+import { motivizerEn, motivizerRu, motivizerEs, motivizerDe, motivizerIt, motivizerTr, motivizerZh, motivizerAr } from "./motivizer";
+import { youcanEn, youcanRu, youcanEs, youcanDe, youcanIt, youcanTr, youcanZh, youcanAr } from "./youcan";
 
 const i18n = new I18n({
-  locales: [Lang.RU, Lang.EN, Lang.ES, Lang.DE, Lang.IT, Lang.TR, Lang.ZH],
+  locales: [Lang.RU, Lang.EN, Lang.ES, Lang.DE, Lang.IT, Lang.TR, Lang.ZH, Lang.AR],
   defaultLocale: Lang.EN,
   updateFiles: false,
   syncFiles: false,
@@ -88,6 +88,12 @@ catalog[Lang.ZH] = {
   [Motivizer]: transformMotivizerContent(motivizerZh),
   [YouCan]: youcanZh,
 } as unknown as LocaleCatalog;
+catalog[Lang.AR] = {
+  ...transformMultilineContent(dialogsAr),
+  ...buttonsAr,
+  [Motivizer]: transformMotivizerContent(motivizerAr),
+  [YouCan]: youcanAr,
+} as unknown as LocaleCatalog;
 
 /**
  * Content
@@ -126,7 +132,7 @@ const selectButtonsByKey = (key: DialogKey, locale: Lang): InlineKeyboard => {
     return [
       [buttonFor(BTN.Lang_ES, locale), buttonFor(BTN.Lang_DE, locale)],
       [buttonFor(BTN.Lang_IT, locale), buttonFor(BTN.Lang_TR, locale)],
-      [buttonFor(BTN.Lang_ZH, locale)],
+      [buttonFor(BTN.Lang_ZH, locale), buttonFor(BTN.Lang_AR, locale)],
       [buttonFor(BTN.Lang_RU, locale), buttonFor(BTN.Lang_EN, locale)],
     ];
   }

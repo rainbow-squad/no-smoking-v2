@@ -20,7 +20,7 @@ export const dialogsEn: MultilineContent = {
     Together, we can do it 🤙${ND}
     Supported languages${NL}
     Click here ➤ /lang ${NL}
-    🇷🇺 🇬🇧 🇪🇸 🇩🇪 🇮🇹 🇹🇷 🇨🇳
+    🇷🇺 🇬🇧 🇪🇸 🇩🇪 🇮🇹 🇹🇷 🇨🇳 🇸🇦
   `,
   [Content.START_EXISTING]: `
     Hey! ✌️${N2}
