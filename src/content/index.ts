@@ -3,13 +3,13 @@ import { I18n, LocaleCatalog, Replacements } from "i18n";
 import { BTN, Content, DialogKey, Lang, Motivizer, YouCan } from "../constants";
 import { newLineRegexp } from "./dialogs/constants";
 import { ButtonOption, ContentProps, InlineKeyboard, MultilineContent, TMotivizer, TYouCan } from "./types";
-import { dialogsEn, dialogsRu, dialogsEs, dialogsDe } from "./dialogs";
-import { buttonsEn, buttonsRu, buttonsEs, buttonsDe } from "./buttons";
-import { motivizerEn, motivizerRu, motivizerEs, motivizerDe } from "./motivizer";
-import { youcanEn, youcanRu, youcanEs, youcanDe } from "./youcan";
+import { dialogsEn, dialogsRu, dialogsEs, dialogsDe, dialogsIt, dialogsTr, dialogsZh, dialogsAr } from "./dialogs";
+import { buttonsEn, buttonsRu, buttonsEs, buttonsDe, buttonsIt, buttonsTr, buttonsZh, buttonsAr } from "./buttons";
+import { motivizerEn, motivizerRu, motivizerEs, motivizerDe, motivizerIt, motivizerTr, motivizerZh, motivizerAr } from "./motivizer";
+import { youcanEn, youcanRu, youcanEs, youcanDe, youcanIt, youcanTr, youcanZh, youcanAr } from "./youcan";
 
 const i18n = new I18n({
-  locales: [Lang.RU, Lang.EN, Lang.ES, Lang.DE],
+  locales: [Lang.RU, Lang.EN, Lang.ES, Lang.DE, Lang.IT, Lang.TR, Lang.ZH, Lang.AR],
   defaultLocale: Lang.EN,
   updateFiles: false,
   syncFiles: false,
@@ -70,6 +70,30 @@ catalog[Lang.DE] = {
   [Motivizer]: transformMotivizerContent(motivizerDe),
   [YouCan]: youcanDe,
 } as unknown as LocaleCatalog;
+catalog[Lang.IT] = {
+  ...transformMultilineContent(dialogsIt),
+  ...buttonsIt,
+  [Motivizer]: transformMotivizerContent(motivizerIt),
+  [YouCan]: youcanIt,
+} as unknown as LocaleCatalog;
+catalog[Lang.TR] = {
+  ...transformMultilineContent(dialogsTr),
+  ...buttonsTr,
+  [Motivizer]: transformMotivizerContent(motivizerTr),
+  [YouCan]: youcanTr,
+} as unknown as LocaleCatalog;
+catalog[Lang.ZH] = {
+  ...transformMultilineContent(dialogsZh),
+  ...buttonsZh,
+  [Motivizer]: transformMotivizerContent(motivizerZh),
+  [YouCan]: youcanZh,
+} as unknown as LocaleCatalog;
+catalog[Lang.AR] = {
+  ...transformMultilineContent(dialogsAr),
+  ...buttonsAr,
+  [Motivizer]: transformMotivizerContent(motivizerAr),
+  [YouCan]: youcanAr,
+} as unknown as LocaleCatalog;
 
 /**
  * Content
@@ -107,6 +131,8 @@ const selectButtonsByKey = (key: DialogKey, locale: Lang): InlineKeyboard => {
   if (key === DialogKey.lang) {
     return [
       [buttonFor(BTN.Lang_ES, locale), buttonFor(BTN.Lang_DE, locale)],
+      [buttonFor(BTN.Lang_IT, locale), buttonFor(BTN.Lang_TR, locale)],
+      [buttonFor(BTN.Lang_ZH, locale), buttonFor(BTN.Lang_AR, locale)],
       [buttonFor(BTN.Lang_RU, locale), buttonFor(BTN.Lang_EN, locale)],
     ];
   }

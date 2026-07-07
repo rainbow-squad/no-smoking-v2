@@ -1866,6 +1866,8 @@ These messages should increase confidence and motivation without creating pressu
 
 # Adding a New Language
 
+> ⚠️ **Before writing any file content: always create the file first using `touch` via `executeBash`. See step 7.**
+
 When introducing a new language, perform all of the following steps.
 
 ## 1. Register the Language
@@ -1950,3 +1952,23 @@ When translating or adding a new language, process content in small batches.
 - Preserve the original order of entries.
 - Do not skip entries.
 - After finishing a file, verify that every source entry has a corresponding translated entry.
+
+## 7. File Creation — MANDATORY
+
+> ⚠️ **CRITICAL: This rule applies every time a new translation file is created. No exceptions.**
+
+When creating new translation files, you **must** use `executeBash` to create the file first with `touch`, and only then write content into it.
+
+**Never** use `fsWrite` (or any file-writing tool) to create a new file directly.
+
+The required sequence is:
+
+1. Run `touch <path>` via `executeBash` to create the empty file.
+2. Then write content into it using `fsWrite` with `append`, or `fsReplace`.
+
+Example:
+```bash
+touch src/content/dialogs/dialogs.it.ts
+```
+
+This rule exists because the project requires files to be explicitly created before content is written. Skipping `touch` and writing directly will be treated as a violation of this guide.
