@@ -10,6 +10,7 @@ export enum Lang {
   DE = "de",
   IT = "it",
   TR = "tr",
+  ZH = "zh",
 }
 
 /**
@@ -189,6 +190,7 @@ export enum BTN {
   Lang_DE = "lang_de",
   Lang_IT = "lang_it",
   Lang_TR = "lang_tr",
+  Lang_ZH = "lang_zh",
   Reset_Stage_1 = "reset_to_stage_1",
   Reset_Stage_2 = "reset_to_stage_2",
   Reset_Ignore = "reset_ignore",

@@ -20,7 +20,7 @@ export const dialogsTr: MultilineContent = {
     Birlikte başarabiliriz 🤙${ND}
     Supported languages${NL}
     Click here ➤ /lang ${NL}
-    🇷🇺 🇬🇧 🇪🇸 🇩🇪 🇮🇹 🇹🇷
+    🇷🇺 🇬🇧 🇪🇸 🇩🇪 🇮🇹 🇹🇷 🇨🇳
   `,
   [Content.START_EXISTING]: `
     Merhaba! ✌️${N2}
