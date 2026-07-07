@@ -56,6 +56,9 @@ export const botActionsInit = (bot: TgBot) => {
       case BTN.Lang_IT:
         act.changeLanguageHandler(message, Lang.IT);
         break;
+      case BTN.Lang_TR:
+        act.changeLanguageHandler(message, Lang.TR);
+        break;
       case BTN.Level_Change:
         act.onLevel(message);
         break;

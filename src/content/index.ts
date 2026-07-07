@@ -3,13 +3,13 @@ import { I18n, LocaleCatalog, Replacements } from "i18n";
 import { BTN, Content, DialogKey, Lang, Motivizer, YouCan } from "../constants";
 import { newLineRegexp } from "./dialogs/constants";
 import { ButtonOption, ContentProps, InlineKeyboard, MultilineContent, TMotivizer, TYouCan } from "./types";
-import { dialogsEn, dialogsRu, dialogsEs, dialogsDe, dialogsIt } from "./dialogs";
-import { buttonsEn, buttonsRu, buttonsEs, buttonsDe, buttonsIt } from "./buttons";
-import { motivizerEn, motivizerRu, motivizerEs, motivizerDe, motivizerIt } from "./motivizer";
-import { youcanEn, youcanRu, youcanEs, youcanDe, youcanIt } from "./youcan";
+import { dialogsEn, dialogsRu, dialogsEs, dialogsDe, dialogsIt, dialogsTr } from "./dialogs";
+import { buttonsEn, buttonsRu, buttonsEs, buttonsDe, buttonsIt, buttonsTr } from "./buttons";
+import { motivizerEn, motivizerRu, motivizerEs, motivizerDe, motivizerIt, motivizerTr } from "./motivizer";
+import { youcanEn, youcanRu, youcanEs, youcanDe, youcanIt, youcanTr } from "./youcan";
 
 const i18n = new I18n({
-  locales: [Lang.RU, Lang.EN, Lang.ES, Lang.DE, Lang.IT],
+  locales: [Lang.RU, Lang.EN, Lang.ES, Lang.DE, Lang.IT, Lang.TR],
   defaultLocale: Lang.EN,
   updateFiles: false,
   syncFiles: false,
@@ -76,6 +76,12 @@ catalog[Lang.IT] = {
   [Motivizer]: transformMotivizerContent(motivizerIt),
   [YouCan]: youcanIt,
 } as unknown as LocaleCatalog;
+catalog[Lang.TR] = {
+  ...transformMultilineContent(dialogsTr),
+  ...buttonsTr,
+  [Motivizer]: transformMotivizerContent(motivizerTr),
+  [YouCan]: youcanTr,
+} as unknown as LocaleCatalog;
 
 /**
  * Content
@@ -113,7 +119,7 @@ const selectButtonsByKey = (key: DialogKey, locale: Lang): InlineKeyboard => {
   if (key === DialogKey.lang) {
     return [
       [buttonFor(BTN.Lang_ES, locale), buttonFor(BTN.Lang_DE, locale)],
-      [buttonFor(BTN.Lang_IT, locale)],
+      [buttonFor(BTN.Lang_IT, locale), buttonFor(BTN.Lang_TR, locale)],
       [buttonFor(BTN.Lang_RU, locale), buttonFor(BTN.Lang_EN, locale)],
     ];
   }

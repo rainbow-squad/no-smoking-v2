@@ -3,3 +3,4 @@ export * from "./motivizer.ru";
 export * from "./motivizer.es";
 export * from "./motivizer.de";
 export * from "./motivizer.it";
+export * from "./motivizer.tr";
