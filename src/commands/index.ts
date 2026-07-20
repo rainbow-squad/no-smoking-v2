@@ -104,6 +104,12 @@ export const botActionsInit = (bot: TgBot) => {
       case BTN.Recommendations:
         act.ignoreSuccess(message);
         break;
+      case BTN.Pro_Next_Day:
+        act.proNextDay(message);
+        break;
+      case BTN.Pro_This_Day:
+        act.proThisDay(message);
+        break;
       case BTN.Local_Time_Wrong:
         act.localTimeDialogCall(message);
         break;

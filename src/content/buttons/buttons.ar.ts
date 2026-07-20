@@ -33,6 +33,8 @@ export const buttonsAr: ButtonNames = {
   [BTN.Local_Time_24h]: "24 ساعة",
   [BTN.Local_Time_Confirmed]: "الوقت صحيح 👍",
   [BTN.Recommendations]: "نصائح للإقلاع عن التدخين",
+  [BTN.Pro_Next_Day]: "ابدأ يومًا جديدًا 🪐",
+  [BTN.Pro_This_Day]: "استمر ▶️",
   [BTN.Lang_RU]: "RU 🇷🇺",
   [BTN.Lang_EN]: "EN 🇬🇧",
   [BTN.Lang_ES]: "ES 🇪🇸",

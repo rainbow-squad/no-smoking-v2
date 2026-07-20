@@ -248,6 +248,9 @@ const selectButtonsByKey = (key: DialogKey, locale: Lang): InlineKeyboard => {
   if (key === DialogKey.change_level) {
     return [[buttonFor(BTN.Level_Keep_As_It_Is, locale), buttonFor(BTN.Level_Change, locale)]];
   }
+  if (key === DialogKey.pro_on_idle) {
+    return [[buttonFor(BTN.Pro_Next_Day, locale)], [buttonFor(BTN.Pro_This_Day, locale)]];
+  }
   return [];
 };
 

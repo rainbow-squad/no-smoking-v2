@@ -1352,6 +1352,25 @@ The community allows users to communicate, ask questions, share experiences, and
 
 ---
 
+## Content.IDLE_NO_CIGARETTES_PRO
+
+### Context
+
+Displayed when a **PRO** user records a smoking break after an unusually long interval (more than 200 minutes).
+
+Unlike regular users, the application **does not automatically assume that a new day has started**, because PRO users may naturally have very long intervals between smoking breaks.
+
+Instead, the application asks whether the user has **actually slept and started a new day**, or whether this was simply a long interval during the same day.
+
+### Translation Notes
+
+- Present this as a simple clarification question.
+- Do not imply that either answer is expected or preferred.
+- Make it clear that the user is choosing whether to start a new day.
+- Keep the tone neutral and supportive.
+
+---
+
 ## Content.DEV*
 
 ### Context
@@ -1789,6 +1808,40 @@ Opens recommendations and practical advice for quitting smoking.
 
 - The wording should clearly indicate helpful tips or recommendations.
 - Keep the label concise.
+ 
+---
+
+## BTN.Pro_Next_Day
+
+### Context
+
+Displayed in response to `Content.IDLE_NO_CIGARETTES_PRO`.
+
+The user confirms that they **have slept** and that a **new day should be started**.
+
+### Translation Notes
+
+- Keep the label short.
+- Clearly indicate starting a new day.
+- Phrase it as confirming the user's choice rather than as a command.
+
+---
+
+## BTN.Pro_This_Day
+
+### Context
+
+Displayed in response to `Content.IDLE_NO_CIGARETTES_PRO`.
+
+The user confirms that **this is still the same day** and that the long interval should simply be treated as part of today's progress.
+
+This button functions as a **Continue** action.
+
+### Translation Notes
+
+- Keep the label very short.
+- The wording should express continuing the current day.
+- Avoid implying that a new day will be started.
 
 ---
 
