@@ -184,6 +184,13 @@ export const dialogsZh: MultilineContent = {
     但你没有放弃戒烟目标，这证明了你的坚定。${N2}
     ${B}请继续坚持！${B} 🚀
   `,
+  [Content.IDLE_NO_CIGARETTES_PRO]: `
+    🪬 ${B}长时间暂停${B} 🪬${N2}
+    你已达到一个间隔，我们无法判断你是在睡觉还是只是有一个较长的暂停。${N2}
+    我们需要你的帮助！${N2}
+    - ${B}开始新的一天${B} — 如果你在睡觉。${NL}
+    - ${B}继续${B} — 如果只是一个长暂停。${NL}
+  `,
   [Content.TIME_FOR_A_SMOKE]: "🔥 吸烟时间到！🔥",
   [Content.ON_IDLE_START]: `💤💤💤 ${B}长间隔${B}${N2}`,
   [Content.ON_IDLE_TIME_CONFIRMATION]: `⏰️ 对一下时间。你那边现在是 ${B}{{local_time}}${B} 吗？`,

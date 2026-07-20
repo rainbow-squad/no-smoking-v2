@@ -243,7 +243,7 @@ export class DevActions {
   @transformMsg
   @onlyForKnownUsers
   public async devContent(msg: TelegramBot.Message) {
-    await this._res(msg.user, Content.IDLE_NO_CIGARETTES, {}, DialogKey.pro_on_idle);
+    await this._res(msg.user, Content.IDLE_NO_CIGARETTES_PRO, {}, DialogKey.pro_on_idle);
     /*
     // const smokingButtonKey = smokingButtonByIdempotencyKey(msg.user.idempotencyKey);
     // await this._res(msg.user, Content.STAGE_1_FORGOT_TO_CLICK, {}, smokingButtonKey);

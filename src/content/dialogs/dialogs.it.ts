@@ -184,6 +184,13 @@ export const dialogsIt: MultilineContent = {
     Tuttavia, il fatto che tu non abbia rinunciato al tuo obiettivo di smettere di fumare dimostra la tua determinazione.${N2}
     ${B}Per favore, continua!${B} 🚀
   `,
+  [Content.IDLE_NO_CIGARETTES_PRO]: `
+    🪬 ${B}LUNGA PAUSA${B} 🪬${N2}
+    Hai raggiunto un intervallo in cui non riusciamo a capire da soli se stavi dormendo o avevi semplicemente una pausa lunga.${N2}
+    Abbiamo bisogno del tuo aiuto!${N2}
+    - ${B}Inizia un nuovo giorno${B} — se stavi dormendo.${NL}
+    - ${B}Continua${B} — se è solo una pausa lunga.${NL}
+  `,
   [Content.TIME_FOR_A_SMOKE]: "🔥 È ora di una pausa! 🔥",
   [Content.ON_IDLE_START]: `💤💤💤 ${B}Lunga pausa${B}${N2}`,
   [Content.ON_IDLE_TIME_CONFIRMATION]: `⏰️ Sincronizziamo gli orologi. Sono le ${B}{{local_time}}${B} da te?`,

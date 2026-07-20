@@ -184,6 +184,13 @@ export const dialogsDe: MultilineContent = {
     Die Tatsache, dass du dein Ziel, mit dem Rauchen aufzuhören, nicht aufgegeben hast, zeigt deine Entschlossenheit.${N2}
     ${B}Bitte mach weiter!${B} 🚀
   `,
+  [Content.IDLE_NO_CIGARETTES_PRO]: `
+    🪬 ${B}LANGE PAUSE${B} 🪬${N2}
+    Du hast ein Intervall erreicht, bei dem wir nicht erkennen können, ob du geschlafen hast oder einfach eine lange Pause hattest.${N2}
+    Wir brauchen deine Hilfe!${N2}
+    - ${B}Neuen Tag starten${B} — wenn du geschlafen hast.${NL}
+    - ${B}Weiter${B} — wenn es nur eine lange Pause war.${NL}
+  `,
   [Content.TIME_FOR_A_SMOKE]: "🔥 Zeit für eine Rauchpause! 🔥",
   [Content.ON_IDLE_START]: `💤💤💤 ${B}Lange Pause${B}${N2}`,
   [Content.ON_IDLE_TIME_CONFIRMATION]: `⏰️ Lass uns die Uhren abgleichen. Ist es ${B}{{local_time}}${B} bei dir?`,

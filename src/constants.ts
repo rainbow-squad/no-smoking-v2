@@ -79,6 +79,7 @@ export enum Content {
   PENALTY = "Penalty",
   PENALTY_3 = "Penalty_3",
   IDLE_NO_CIGARETTES = "Idle_No_Cigarettes",
+  IDLE_NO_CIGARETTES_PRO = "Idle_No_Cigarettes_Pro",
   TIME_FOR_A_SMOKE = "Time_For_a_Smoke",
   ON_IDLE_START = "On_Idle_Start",
   ON_IDLE_TIME_CONFIRMATION = "On_Idle_Time_Confirmation",
@@ -158,6 +159,7 @@ export enum DialogKey {
   local_time = "local_time",
   confirm_local_time = "local_time_confirmation",
   change_level = "change_level",
+  pro_on_idle = "pro_on_idle",
 }
 
 /**
@@ -235,6 +237,8 @@ export enum BTN {
   Dev_Content_RU = "dev_content_ru",
   Dev_Content_EN = "dev_content_en",
   Recommendations = "recommendations",
+  Pro_This_Day = "pro_this_day",
+  Pro_Next_Day = "pro_next_day",
 }
 
 export enum IdempotencyKeys {

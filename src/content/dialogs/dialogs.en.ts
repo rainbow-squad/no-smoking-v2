@@ -185,6 +185,13 @@ export const dialogsEn: MultilineContent = {
     However, the fact that you haven’t given up on your goal to quit smoking speaks to your determination.${N2}
     ${B}Please, keep going!${B} 🚀
   `,
+  [Content.IDLE_NO_CIGARETTES_PRO]: `
+    🪬 ${B}LONG PAUSE${B} 🪬${N2}
+    You've reached an interval where we can't tell on our own whether you were sleeping or just had a long break.${N2}
+    We need your help!${N2}
+    - ${B}Start a new day${B} — if you were sleeping.${NL}
+    - ${B}Continue${B} — if this is just a long pause.${NL}
+  `,
   [Content.ON_IDLE_START]: `💤💤💤 ${B}Long Break${B}${N2}`,
   [Content.ON_IDLE_TIME_CONFIRMATION]: `⏰️ Let's sync our watches. Is it ${B}{{local_time}}${B} for you?`,
   [Content.ON_IDLE_STATS_1]: `Yesterday, you smoked ${B}{{cigarettes}}${B} times${NL}`,

@@ -184,6 +184,13 @@ export const dialogsTr: MultilineContent = {
     Ancak sigarayı bırakma hedefinizden vazgeçmemiş olmanız kararlılığınızı gösteriyor.${N2}
     ${B}Lütfen devam edin!${B} 🚀
   `,
+  [Content.IDLE_NO_CIGARETTES_PRO]: `
+    🪬 ${B}UZUN MOLA${B} 🪬${N2}
+    Uyuduğunuzu mu yoksa sadece uzun bir mola mı verdiğinizi kendi başımıza anlayamadığımız bir aralığa ulaştınız.${N2}
+    Yardımınıza ihtiyacımız var!${N2}
+    - ${B}Yeni bir gün başlat${B} — uyuduysanız.${NL}
+    - ${B}Devam et${B} — sadece uzun bir molaysa.${NL}
+  `,
   [Content.TIME_FOR_A_SMOKE]: "🔥 Mola zamanı! 🔥",
   [Content.ON_IDLE_START]: `💤💤💤 ${B}Uzun Aralık${B}${N2}`,
   [Content.ON_IDLE_TIME_CONFIRMATION]: `⏰️ Saatleri senkronize edelim. Sizde saat ${B}{{local_time}}${B} mi?`,
