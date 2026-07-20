@@ -7,7 +7,7 @@ import { Content, DialogKey, Difficulty, HourFormat, IdempotencyKeys, Motivizer,
 import { DevActions } from "./development";
 import { Settings } from "./settings";
 import { User, UsersRepo } from "../db";
-import { IGNORE_TIME, MIN_INTERVAL, STAGE_1_MAX, STAGE_1_STEPS, USER_IDLE_TIME } from "./constants";
+import { IGNORE_TIME, MIN_INTERVAL, PRO_USER_TIME, STAGE_1_MAX, STAGE_1_STEPS, USER_IDLE_TIME } from "./constants";
 import { minsToTimeString } from "../lib_helpers/humanize-duration";
 import { LogActionCalls, onlyForKnownUsers, transformMsg } from "./decorators";
 import { tgLangCodeToLang } from "../lib_helpers/i18n";
@@ -269,7 +269,12 @@ export class Actions extends Mixin(DevActions, Settings) {
       await this._res(msg.user, Content.PENALTY, { penalty: update.penalty });
     }
     // idle
+    const isPro = msg.user.deltaTime >= PRO_USER_TIME;
     const isIdle = currentDelta >= USER_IDLE_TIME;
+    if (isIdle && !msg.user.cigarettesInDay && isPro) {
+      await this._res(msg.user, Content.IDLE_NO_CIGARETTES_PRO, {}, DialogKey.pro_on_idle);
+      return;
+    }
     if (isIdle && !msg.user.cigarettesInDay) {
       await this._res(msg.user, Content.IDLE_NO_CIGARETTES);
       const local_time = mssToTime(msg.ts, msg.user);
