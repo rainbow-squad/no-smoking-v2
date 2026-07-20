@@ -243,7 +243,7 @@ export class Actions extends Mixin(DevActions, Settings) {
       await this._res(msg.user, Content.STAGE_2_IGNORE_MIN, { min_interval });
       return;
     }
-    
+
     // pro
     if (msg.user.deltaTime >= PRO_USER_TIME) {
       await this._res(msg.user, Content.IDLE_NO_CIGARETTES_PRO, {}, DialogKey.pro_on_idle);
@@ -286,51 +286,7 @@ export class Actions extends Mixin(DevActions, Settings) {
     if (isNonEmptyIdle) {
       // normal idle update
       logger.debug(`U-${msg.user.chatId} [idle] ${currentDelta} >= ${USER_IDLE_TIME}`);
-      const isMaxTimeLimitReached = msg.user.deltaTime >= USER_IDLE_TIME - 5;
-      const newDelta = isMaxTimeLimitReached ? msg.user.deltaTime : computeNewDelta(msg.user);
-      const newNextTime = msg.ts + newDelta * 60 * 1000;
-      update.penalty = 0;
-      update.cigarettesInDay = 0;
-      update.deltaTime = newDelta;
-      update.nextTime = newNextTime;
-
-      const isEasyDifficulty = msg.user.difficulty === Difficulty.EASY;
-      if (isEasyDifficulty) {
-        update.penaltyDays = msg.user.penalty ? 3 : 0;
-        update.winstrike = msg.user.penalty ? msg.user.winstrike : msg.user.winstrike + 1;
-      } else {
-        update.penaltyDays = msg.user.penalty ? msg.user.penaltyDays + 1 : 0;
-        update.winstrike = msg.user.penalty ? 0 : msg.user.winstrike + 1;
-      }
-
-      const content: string[] = [];
-      const cigarettes = cigarettesText(msg);
-      content.push(getContent(msg.user.lang, Content.ON_IDLE_STATS_1, { cigarettes }));
-
-      const motivizer = getContent(msg.user.lang, Motivizer);
-      content.push(motivizer[msg.user.motivizerIndex]);
-      const motivizerNext = msg.user.motivizerIndex + 1;
-      update.motivizerIndex = motivizerNext !== motivizer.length ? motivizerNext : 0;
-      const step = stepByDifficulty(msg.user.difficulty);
-      content.push(
-        getContent(msg.user.lang, Content.ON_IDLE_STATS_2, {
-          prev_delta: minsToTimeString(msg.user.deltaTime, msg.user.lang),
-          new_delta: minsToTimeString(newDelta, msg.user.lang),
-          penalty: msg.user.penalty,
-          penalty_mins: penaltyMinutesString(msg.user),
-          step: minsToTimeString(step, msg.user.lang),
-        }),
-      );
-      const ops: TelegramBot.SendMessageOptions = { parse_mode: "MarkdownV2" };
-      await this.bot.sendMessage(msg.user.chatId, content.join(""), ops);
-
-      // display hint if limit is reached
-      if (isMaxTimeLimitReached) {
-        await this._res(msg.user, Content.MAXIMUM_REACHED, {}, DialogKey.max_time);
-      } else {
-        const local_time = mssToTime(msg.ts, msg.user);
-        await this._res(msg.user, Content.ON_IDLE_TIME_CONFIRMATION, { local_time }, DialogKey.confirm_local_time);
-      }
+      await this._stage2NewDay(msg, update);
     }
     // normal stage 2
     if (!isIdle && msg.user.cigarettesInDay === 1) {
@@ -347,6 +303,62 @@ export class Actions extends Mixin(DevActions, Settings) {
       await this._res(msg.user, Content.NEXT_SMOKING_TIME, { time_to_get_smoke }, ImSmokingDialogKey);
     }
     // update user
+    await UsersRepo.updateUser(msg, update);
+  }
+
+  @stage2
+  private async _stage2NewDay(msg: TelegramBot.Message, update: Partial<User>) {
+    const newDelta = computeNewDelta(msg.user);
+    const newNextTime = msg.ts + newDelta * 60 * 1000;
+    update.penalty = 0;
+    update.cigarettesInDay = 0;
+    update.deltaTime = newDelta;
+    update.nextTime = newNextTime;
+
+    const isEasyDifficulty = msg.user.difficulty === Difficulty.EASY;
+    if (isEasyDifficulty) {
+      update.penaltyDays = msg.user.penalty ? 3 : 0;
+      update.winstrike = msg.user.penalty ? msg.user.winstrike : msg.user.winstrike + 1;
+    } else {
+      update.penaltyDays = msg.user.penalty ? msg.user.penaltyDays + 1 : 0;
+      update.winstrike = msg.user.penalty ? 0 : msg.user.winstrike + 1;
+    }
+
+    const content: string[] = [];
+    const cigarettes = cigarettesText(msg);
+    content.push(getContent(msg.user.lang, Content.ON_IDLE_STATS_1, { cigarettes }));
+
+    const motivizer = getContent(msg.user.lang, Motivizer);
+    content.push(motivizer[msg.user.motivizerIndex]);
+    const motivizerNext = msg.user.motivizerIndex + 1;
+    update.motivizerIndex = motivizerNext !== motivizer.length ? motivizerNext : 0;
+    const step = stepByDifficulty(msg.user.difficulty);
+    content.push(
+      getContent(msg.user.lang, Content.ON_IDLE_STATS_2, {
+        prev_delta: minsToTimeString(msg.user.deltaTime, msg.user.lang),
+        new_delta: minsToTimeString(newDelta, msg.user.lang),
+        penalty: msg.user.penalty,
+        penalty_mins: penaltyMinutesString(msg.user),
+        step: minsToTimeString(step, msg.user.lang),
+      }),
+    );
+    const ops: TelegramBot.SendMessageOptions = { parse_mode: "MarkdownV2" };
+    await this.bot.sendMessage(msg.user.chatId, content.join(""), ops);
+
+    const local_time = mssToTime(msg.ts, msg.user);
+    await this._res(msg.user, Content.ON_IDLE_TIME_CONFIRMATION, { local_time }, DialogKey.confirm_local_time);
+  }
+
+  @transformMsg
+  @onlyForKnownUsers
+  @stage2
+  public async proNextDay(msg: TelegramBot.Message) {
+    const update: Partial<User> = {
+      lastTime: msg.ts,
+      ignoreTime: msg.ts + IGNORE_TIME,
+      cigarettesSummary: msg.user.cigarettesSummary + 1,
+    };
+    await this._stage2NewDay(msg, update);
     await UsersRepo.updateUser(msg, update);
   }
 
