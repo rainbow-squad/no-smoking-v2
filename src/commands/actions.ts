@@ -271,7 +271,7 @@ export class Actions extends Mixin(DevActions, Settings) {
     // idle
     const isPro = msg.user.deltaTime >= PRO_USER_TIME;
     const isIdle = currentDelta >= USER_IDLE_TIME;
-    if (isIdle && !msg.user.cigarettesInDay && isPro) {
+    if (isIdle && isPro) {
       await this._res(msg.user, Content.IDLE_NO_CIGARETTES_PRO, {}, DialogKey.pro_on_idle);
       return;
     }
@@ -331,14 +331,14 @@ export class Actions extends Mixin(DevActions, Settings) {
       }
     }
     // normal stage 2
-    if (currentDelta < USER_IDLE_TIME && msg.user.cigarettesInDay === 1) {
+    if (!isIdle && msg.user.cigarettesInDay === 1) {
       const youCanIndex = msg.user.youCanIndex || 0;
       const youCanContent = getContent(msg.user.lang, YouCan);
       const message = youCanContent[youCanIndex];
       await this.bot.sendMessage(msg.user.chatId, message, { parse_mode: "Markdown" });
       update.youCanIndex = youCanIndex + 2 < youCanContent.length ? youCanIndex + 1 : 0;
     }
-    if (currentDelta < USER_IDLE_TIME) {
+    if (!isIdle) {
       const time_to_get_smoke = mssToTime(update.nextTime!, msg.user);
       const content = !isPenalty && msg.user.cigarettesInDay ? Content.STAGE_2_SUCCESS : Content.STAGE_2;
       await this._res(msg.user, content);
