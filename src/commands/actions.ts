@@ -243,6 +243,13 @@ export class Actions extends Mixin(DevActions, Settings) {
       await this._res(msg.user, Content.STAGE_2_IGNORE_MIN, { min_interval });
       return;
     }
+    
+    // pro
+    if (msg.user.deltaTime >= PRO_USER_TIME) {
+      await this._res(msg.user, Content.IDLE_NO_CIGARETTES_PRO, {}, DialogKey.pro_on_idle);
+      return;
+    }
+
     const update: Partial<User> = {
       idempotencyKey,
       lastTime: msg.ts,
@@ -269,12 +276,7 @@ export class Actions extends Mixin(DevActions, Settings) {
       await this._res(msg.user, Content.PENALTY, { penalty: update.penalty });
     }
     // idle
-    const isPro = msg.user.deltaTime >= PRO_USER_TIME;
     const isIdle = currentDelta >= USER_IDLE_TIME;
-    if (isIdle && isPro) {
-      await this._res(msg.user, Content.IDLE_NO_CIGARETTES_PRO, {}, DialogKey.pro_on_idle);
-      return;
-    }
     if (isIdle && !msg.user.cigarettesInDay) {
       await this._res(msg.user, Content.IDLE_NO_CIGARETTES);
       const local_time = mssToTime(msg.ts, msg.user);
