@@ -59,4 +59,6 @@ export const buttonsIt: ButtonNames = {
   [BTN.Dev_Ignore]: "To Ignore Mode 🌀",
   [BTN.Dev_Content]: "Content 📋",
   [BTN.Dev_Content_All]: "All Content 📋",
+  [BTN.Pro_Next_Day]: "Inizia un nuovo giorno 🪐",
+  [BTN.Pro_This_Day]: "Continua ▶️",
 };

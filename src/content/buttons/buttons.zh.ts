@@ -59,4 +59,6 @@ export const buttonsZh: ButtonNames = {
   [BTN.Dev_Ignore]: "To Ignore Mode 🌀",
   [BTN.Dev_Content]: "Content 📋",
   [BTN.Dev_Content_All]: "All Content 📋",
+  [BTN.Pro_Next_Day]: "开始新的一天 🪐",
+  [BTN.Pro_This_Day]: "继续 ▶️",
 };
