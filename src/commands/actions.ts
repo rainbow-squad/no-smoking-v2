@@ -259,22 +259,7 @@ export class Actions extends Mixin(DevActions, Settings) {
       cigarettesSummary: msg.user.cigarettesSummary + 1,
     };
     // penalty
-    const isPenalty = msg.ts < msg.user.nextTime;
-    if (isPenalty) {
-      logger.debug(`U-${msg.user.chatId} [penalty] ${tsToDateTime(msg.ts)} < ${tsToDateTime(msg.user.nextTime)}`);
-    }
-    if (isPenalty && msg.user.difficulty !== Difficulty.EASY) {
-      update.winstrike = 0;
-    }
-    if (isPenalty && msg.user.difficulty === Difficulty.HARD) {
-      update.difficulty = Difficulty.MEDIUM;
-      await this._res(msg.user, Content.DIFFICULTY_HARD_DECREASED);
-    }
-    if (isPenalty && msg.user.difficulty !== Difficulty.HARD) {
-      update.penalty = msg.user.penalty + 1;
-      update.penaltyAll = msg.user.penaltyAll + 1;
-      await this._res(msg.user, Content.PENALTY, { penalty: update.penalty });
-    }
+    const isPenalty = await this._stage2PenaltyCheck(msg, update);
     // idle
     const isIdle = currentDelta >= USER_IDLE_TIME;
     if (isIdle && !msg.user.cigarettesInDay) {
@@ -290,11 +275,7 @@ export class Actions extends Mixin(DevActions, Settings) {
     }
     // normal stage 2
     if (!isIdle && msg.user.cigarettesInDay === 1) {
-      const youCanIndex = msg.user.youCanIndex || 0;
-      const youCanContent = getContent(msg.user.lang, YouCan);
-      const message = youCanContent[youCanIndex];
-      await this.bot.sendMessage(msg.user.chatId, message, { parse_mode: "Markdown" });
-      update.youCanIndex = youCanIndex + 2 < youCanContent.length ? youCanIndex + 1 : 0;
+      await this._stage2ShowYouCan(msg, update);
     }
     if (!isIdle) {
       const time_to_get_smoke = mssToTime(update.nextTime!, msg.user);
@@ -349,6 +330,39 @@ export class Actions extends Mixin(DevActions, Settings) {
     await this._res(msg.user, Content.ON_IDLE_TIME_CONFIRMATION, { local_time }, DialogKey.confirm_local_time);
   }
 
+  @stage2
+  private async _stage2PenaltyCheck(msg: TelegramBot.Message, update: Partial<User>) {
+    const isPenalty = msg.ts < msg.user.nextTime;
+    if (isPenalty) {
+      logger.debug(`U-${msg.user.chatId} [penalty] ${tsToDateTime(msg.ts)} < ${tsToDateTime(msg.user.nextTime)}`);
+    }
+    if (isPenalty && msg.user.difficulty !== Difficulty.EASY) {
+      update.winstrike = 0;
+    }
+    if (isPenalty && msg.user.difficulty === Difficulty.HARD) {
+      update.difficulty = Difficulty.MEDIUM;
+      await this._res(msg.user, Content.DIFFICULTY_HARD_DECREASED);
+    }
+    if (isPenalty && msg.user.difficulty !== Difficulty.HARD) {
+      update.penalty = msg.user.penalty + 1;
+      update.penaltyAll = msg.user.penaltyAll + 1;
+      await this._res(msg.user, Content.PENALTY, { penalty: update.penalty });
+    }
+    return isPenalty;
+  }
+
+  @stage2
+  private async _stage2ShowYouCan(msg: TelegramBot.Message, update: Partial<User>) {
+    if (msg.user.cigarettesInDay !== 1) {
+      return;
+    }
+    const youCanIndex = msg.user.youCanIndex || 0;
+    const youCanContent = getContent(msg.user.lang, YouCan);
+    const message = youCanContent[youCanIndex];
+    await this.bot.sendMessage(msg.user.chatId, message, { parse_mode: "Markdown" });
+    update.youCanIndex = youCanIndex + 2 < youCanContent.length ? youCanIndex + 1 : 0;
+  }
+
   @transformMsg
   @onlyForKnownUsers
   @stage2
@@ -359,6 +373,27 @@ export class Actions extends Mixin(DevActions, Settings) {
       cigarettesSummary: msg.user.cigarettesSummary + 1,
     };
     await this._stage2NewDay(msg, update);
+    await UsersRepo.updateUser(msg, update);
+  }
+
+  @transformMsg
+  @onlyForKnownUsers
+  @stage2
+  public async proThisDay(msg: TelegramBot.Message) {
+    const { idempotencyKey, ImSmokingDialogKey } = getNextIdempotencyKey(msg.user.idempotencyKey);
+    const update: Partial<User> = {
+      idempotencyKey,
+      lastTime: msg.ts,
+      nextTime: msg.ts + msg.user.deltaTime * 60 * 1000,
+      ignoreTime: msg.ts + IGNORE_TIME,
+      cigarettesInDay: msg.user.cigarettesInDay + 1,
+      cigarettesSummary: msg.user.cigarettesSummary + 1,
+    };
+    await this._stage2PenaltyCheck(msg, update);
+    await this._stage2ShowYouCan(msg, update);
+    const time_to_get_smoke = mssToTime(update.nextTime!, msg.user);
+    await this._res(msg.user, Content.STAGE_2);
+    await this._res(msg.user, Content.NEXT_SMOKING_TIME, { time_to_get_smoke }, ImSmokingDialogKey);
     await UsersRepo.updateUser(msg, update);
   }
 
