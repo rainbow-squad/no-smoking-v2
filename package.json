@@ -22,7 +22,7 @@
     "i18n": "^0.15.3",
     "luxon": "^3.7.2",
     "monk": "^7.3.4",
-    "node-telegram-bot-api": "^0.67.0",
+    "node-telegram-bot-api": "^1.2.0",
     "ts-mixer": "^6.0.4",
     "winston": "^3.19.0"
   },
