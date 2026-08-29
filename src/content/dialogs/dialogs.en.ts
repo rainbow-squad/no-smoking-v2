@@ -188,9 +188,8 @@ export const dialogsEn: MultilineContent = {
   [Content.IDLE_NO_CIGARETTES_PRO]: `
     🪬 ${B}LONG PAUSE${B} 🪬${N2}
     You've reached an interval where we can't tell on our own whether you were sleeping or just had a long break.${N2}
-    We need your help!${N2}
     - ${B}Start a new day${B} — if you were sleeping.${NL}
-    - ${B}Continue${B} — if this is just a long pause.${NL}
+    - ${B}I didn't sleep${B} — if this is just a regular smoking break.${NL}
   `,
   [Content.ON_IDLE_START]: `💤💤💤 ${B}Long Break${B}${N2}`,
   [Content.ON_IDLE_TIME_CONFIRMATION]: `⏰️ Let's sync our watches. Is it ${B}{{local_time}}${B} for you?`,

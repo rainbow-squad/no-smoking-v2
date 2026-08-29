@@ -187,9 +187,8 @@ export const dialogsZh: MultilineContent = {
   [Content.IDLE_NO_CIGARETTES_PRO]: `
     🪬 ${B}长时间暂停${B} 🪬${N2}
     你已达到一个间隔，我们无法判断你是在睡觉还是只是有一个较长的暂停。${N2}
-    我们需要你的帮助！${N2}
     - ${B}开始新的一天${B} — 如果你在睡觉。${NL}
-    - ${B}继续${B} — 如果只是一个长暂停。${NL}
+    - ${B}我没有睡觉${B} — 如果只是一次普通的吸烟休息。${NL}
   `,
   [Content.TIME_FOR_A_SMOKE]: "🔥 吸烟时间到！🔥",
   [Content.ON_IDLE_START]: `💤💤💤 ${B}长间隔${B}${N2}`,
