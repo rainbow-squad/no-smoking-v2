@@ -187,9 +187,8 @@ export const dialogsTr: MultilineContent = {
   [Content.IDLE_NO_CIGARETTES_PRO]: `
     🪬 ${B}UZUN MOLA${B} 🪬${N2}
     Uyuduğunuzu mu yoksa sadece uzun bir mola mı verdiğinizi kendi başımıza anlayamadığımız bir aralığa ulaştınız.${N2}
-    Yardımınıza ihtiyacımız var!${N2}
     - ${B}Yeni bir gün başlat${B} — uyuduysanız.${NL}
-    - ${B}Devam et${B} — sadece uzun bir molaysa.${NL}
+    - ${B}Uyumadım${B} — sadece normal bir sigara molasıysa.${NL}
   `,
   [Content.TIME_FOR_A_SMOKE]: "🔥 Mola zamanı! 🔥",
   [Content.ON_IDLE_START]: `💤💤💤 ${B}Uzun Aralık${B}${N2}`,

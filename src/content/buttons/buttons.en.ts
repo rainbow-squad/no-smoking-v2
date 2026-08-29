@@ -60,5 +60,5 @@ export const buttonsEn: ButtonNames = {
   [BTN.Dev_Content_All]: "All Content 📋",
   [BTN.Recommendations]: "Recommendations",
   [BTN.Pro_Next_Day]: "Start a new day 🪐",
-  [BTN.Pro_This_Day]: "Continue ▶️",
+  [BTN.Pro_This_Day]: "I didn't sleep ▶️",
 };

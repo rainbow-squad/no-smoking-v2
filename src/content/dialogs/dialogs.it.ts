@@ -187,9 +187,8 @@ export const dialogsIt: MultilineContent = {
   [Content.IDLE_NO_CIGARETTES_PRO]: `
     🪬 ${B}LUNGA PAUSA${B} 🪬${N2}
     Hai raggiunto un intervallo in cui non riusciamo a capire da soli se stavi dormendo o avevi semplicemente una pausa lunga.${N2}
-    Abbiamo bisogno del tuo aiuto!${N2}
     - ${B}Inizia un nuovo giorno${B} — se stavi dormendo.${NL}
-    - ${B}Continua${B} — se è solo una pausa lunga.${NL}
+    - ${B}Non ho dormito${B} — se è solo una normale pausa per fumare.${NL}
   `,
   [Content.TIME_FOR_A_SMOKE]: "🔥 È ora di una pausa! 🔥",
   [Content.ON_IDLE_START]: `💤💤💤 ${B}Lunga pausa${B}${N2}`,
