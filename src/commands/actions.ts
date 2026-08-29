@@ -50,26 +50,18 @@ export class Actions extends Mixin(DevActions, Settings) {
       logger.error("_res call - user is not defined");
       return Promise.resolve();
     }
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const contentPropsString = Object.entries(contentProps || {})
-          .map(([k, v]) => `${k} = "${v}"`)
-          .join(", ");
-        logger.debug(`U-${user.chatId} -> ${contentKey} ${contentPropsString}`);
-        this.bot.sendToUser(user, contentKey, contentProps, dialogKey).catch((err) => reject(err));
-        resolve();
-      }, 400);
-    });
+    const contentPropsString = Object.entries(contentProps || {})
+      .map(([k, v]) => `${k} = "${v}"`)
+      .join(", ");
+    logger.debug(`U-${user.chatId} -> ${contentKey} ${contentPropsString}`);
+    this.bot.sendToUser(user, contentKey, contentProps, dialogKey);
+    return Promise.resolve();
   }
 
   protected override _resV2(chatId: number, content: string): Promise<void> {
-    return new Promise((resolve) => {
-      setTimeout(async () => {
-        const ops: TelegramBot.SendMessageOptions = { parse_mode: "MarkdownV2" };
-        this.bot.sendMessage(chatId, content, ops);
-        resolve();
-      }, 400);
-    });
+    const ops: TelegramBot.SendMessageOptions = { parse_mode: "MarkdownV2" };
+    this.bot.enqueue(() => this.bot.sendMessage(chatId, content, ops).then());
+    return Promise.resolve();
   }
 
   /**
@@ -78,16 +70,12 @@ export class Actions extends Mixin(DevActions, Settings) {
    */
   protected override _image(user: User, fileName: string, caption: string): Promise<void> {
     const path = pathJoin(__dirname, `../../images/${fileName}`);
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        this.bot
-          .sendPhoto(user.chatId, path, { caption })
-          .catch((error) => {
-            logger.error(`U-${user.chatId} -> Can't send an image ${path}`, { error });
-          })
-          .finally(() => resolve());
-      }, 400);
-    });
+    this.bot.enqueue(() =>
+      this.bot.sendPhoto(user.chatId, path, { caption })
+        .catch((error) => logger.error(`U-${user.chatId} -> Can't send an image ${path}`, { error }))
+        .then()
+    );
+    return Promise.resolve();
   }
 
   /**

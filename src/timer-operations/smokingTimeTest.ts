@@ -11,15 +11,12 @@ import { isDayToSendChatLinkCheck } from "../lib_helpers/luxon";
  * @private
  */
 export const _sendDelayedToSmokers = (bot: TgBot, users: User[], isDayOfChatLinkSending?: boolean) => {
-  const user = users.pop();
-  if (!user) {
-    return;
-  }
-  if (isDayOfChatLinkSending && user.cigarettesInDay === 5) {
-    bot.sendToUser(user, Content.JOIN_OUR_CHAT);
-  }
-  bot.sendToUser(user, Content.TIME_FOR_A_SMOKE);
-  setTimeout(() => _sendDelayedToSmokers(bot, users), 10);
+  users.forEach((user) => {
+    if (isDayOfChatLinkSending && user.cigarettesInDay === 5) {
+      bot.sendToUser(user, Content.JOIN_OUR_CHAT);
+    }
+    bot.sendToUser(user, Content.TIME_FOR_A_SMOKE);
+  });
 };
 
 /**
@@ -28,14 +25,11 @@ export const _sendDelayedToSmokers = (bot: TgBot, users: User[], isDayOfChatLink
  * @private
  */
 export const _sendDelayedToInactiveUsers = (bot: TgBot, users: User[]) => {
-  const user = users.pop();
-  if (!user) {
-    return;
-  }
-  const buttonsForIdle = getIdleVariants(user.lang);
-  const no_penalty_time = minsToTimeString(user.deltaTime, user.lang);
-  bot.sendToUser(user, Content.BOT_IGNORE, { ...buttonsForIdle, no_penalty_time }, DialogKey.ignore);
-  setTimeout(() => _sendDelayedToInactiveUsers(bot, users), 10);
+  users.forEach((user) => {
+    const buttonsForIdle = getIdleVariants(user.lang);
+    const no_penalty_time = minsToTimeString(user.deltaTime, user.lang);
+    bot.sendToUser(user, Content.BOT_IGNORE, { ...buttonsForIdle, no_penalty_time }, DialogKey.ignore);
+  });
 };
 
 /**
