@@ -34,7 +34,7 @@ export const buttonsDe: ButtonNames = {
   [BTN.Local_Time_Confirmed]: "Die Zeit ist korrekt 👍",
   [BTN.Recommendations]: "Tipps zum Aufhören",
   [BTN.Pro_Next_Day]: "Neuen Tag starten 🪐",
-  [BTN.Pro_This_Day]: "Weiter ▶️",
+  [BTN.Pro_This_Day]: "Ich habe nicht geschlafen ▶️",
   [BTN.Lang_RU]: "RU 🇷🇺",
   [BTN.Lang_EN]: "EN 🇬🇧",
   [BTN.Lang_ES]: "ES 🇪🇸",
